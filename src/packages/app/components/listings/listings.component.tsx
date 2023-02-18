@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { Grid } from '../../../ui';
+import { Grid, Input } from '../../../ui';
 import { useFetchListings } from '../../hooks/useFetchListings';
 import { useIntersectionObserver, usePrevious } from '../../../../shared';
 
@@ -22,7 +22,10 @@ export const Listings: FunctionComponent = () => {
   }, [listEnd, prevListEnd]);
 
   return (
-    <div>
+    <div className="space-y-4">
+      <div className="flex justify-center items-center">
+        <Input placeholder="Search NFT name" />
+      </div>
       <Grid>
         {items.map(({ price, extra: { img } }, index) => (
           <div key={index} className="rounded-xl overflow-hidden border">
