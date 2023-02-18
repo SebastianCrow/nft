@@ -5,7 +5,8 @@ const BASE_URL =
 
 const ITEMS_PER_PAGE = 20;
 
-interface ListingsItem {
+// TODO: Move types
+export interface ListingsItem {
   // TODO: Missing real names
   name: string;
   price: number;
