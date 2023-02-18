@@ -18,24 +18,34 @@ interface ListingsResults {
   finished: boolean;
 }
 
-export const useFetchListings = (page: number) => {
+interface UseFetchListingsParams {
+  page: number;
+}
+
+export const useFetchListings = ({ page }: UseFetchListingsParams) => {
   const [data, setData] = useState<ListingsResults>({
     items: [],
     finished: false,
   });
 
   useEffect(() => {
+    if (page < 1) {
+      return;
+    }
+
     const offset = (page - 1) * ITEMS_PER_PAGE;
     fetch(`${BASE_URL}?offset=${offset}&limit=${ITEMS_PER_PAGE}`)
       .then((response) => response.json())
       .then((items: ListingsItem[]) => {
-        setData({
-          items: items.map(({ price, extra }) => ({
-            price,
-            extra,
-          })),
+        setData((prevData) => ({
+          items: prevData.items.concat(
+            items.map(({ price, extra }) => ({
+              price,
+              extra,
+            }))
+          ),
           finished: items.length < ITEMS_PER_PAGE,
-        });
+        }));
       });
   }, [page]);
 

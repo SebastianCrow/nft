@@ -1,12 +1,25 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Grid } from '../../../ui';
-import { useFetchListings } from '../../hooks/useFetchListings.hook';
+import { useFetchListings } from '../../hooks/useFetchListings';
+import { useIntersectionObserver, usePrevious } from '../../../../shared';
 
 export const Listings: FunctionComponent = () => {
-  const { items, finished } = useFetchListings(1);
+  const [page, setPage] = useState(0);
 
-  // TODO
-  console.log(items, finished);
+  const { items, finished } = useFetchListings({ page });
+
+  const listEndRef = useRef<HTMLDivElement>(null);
+
+  const listEnd = useIntersectionObserver({
+    ref: listEndRef,
+  });
+
+  const prevListEnd = usePrevious(listEnd);
+  useEffect(() => {
+    if (prevListEnd === false && listEnd) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  }, [listEnd, prevListEnd]);
 
   return (
     <div>
@@ -21,7 +34,9 @@ export const Listings: FunctionComponent = () => {
           </div>
         ))}
       </Grid>
-      <div>TODO: Loading more awesome stuff...</div>
+      {!finished && (
+        <div ref={listEndRef}>TODO: Loading more awesome stuff...</div>
+      )}
     </div>
   );
 };
