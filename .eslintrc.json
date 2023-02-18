@@ -24,6 +24,7 @@
   "plugins": ["react", "@typescript-eslint", "react-hooks"],
   "rules": {
     "quotes": ["error", "single"],
+    "react/react-in-jsx-scope": "off",
     "react-hooks/exhaustive-deps": "error"
   }
 }
