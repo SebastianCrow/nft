@@ -6,7 +6,8 @@ const BASE_URL =
 const ITEMS_PER_PAGE = 20;
 
 interface ListingsItem {
-  // TODO: Name
+  // TODO: Missing real names
+  name: string;
   price: number;
   extra: {
     img: string;
@@ -39,9 +40,10 @@ export const useFetchListings = ({ page }: UseFetchListingsParams) => {
       .then((items: ListingsItem[]) => {
         setData((prevData) => ({
           items: prevData.items.concat(
-            items.map(({ price, extra }) => ({
+            items.map(({ price, extra }, index) => ({
               price,
               extra,
+              name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
             }))
           ),
           finished: items.length < ITEMS_PER_PAGE,

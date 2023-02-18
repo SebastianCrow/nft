@@ -27,7 +27,7 @@ export const Listings: FunctionComponent = () => {
         <Input placeholder="Search NFT name" />
       </div>
       <Grid>
-        {items.map(({ price, extra: { img } }, index) => (
+        {items.map(({ name, price, extra: { img } }, index) => (
           <div key={index} className="rounded-xl overflow-hidden border">
             <div className="relative aspect-square">
               <img
@@ -39,7 +39,7 @@ export const Listings: FunctionComponent = () => {
               <div className="absolute inset-0 z-0 animate-pulse bg-slate-200" />
             </div>
             <div className="flex justify-between p-4">
-              <div>{`TODO: Name ${index + 1}`}</div>
+              <div>{name}</div>
               <div>{price}</div>
             </div>
           </div>
