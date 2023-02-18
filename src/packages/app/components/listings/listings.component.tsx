@@ -25,9 +25,17 @@ export const Listings: FunctionComponent = () => {
     <div>
       <Grid>
         {items.map(({ price, extra: { img } }, index) => (
-          <div key={index} className="border">
-            <img src={img} alt={`TODO: Image for name ${index + 1}`} />
-            <div className="flex justify-between">
+          <div key={index} className="rounded-xl overflow-hidden border">
+            <div className="relative aspect-square">
+              <img
+                src={img}
+                // src="TODO_broken"
+                alt={`TODO: Image for name ${index + 1}`}
+                className="absolute inset-0 z-10"
+              />
+              <div className="absolute inset-0 z-0 animate-pulse bg-slate-200" />
+            </div>
+            <div className="flex justify-between p-4">
               <div>{`TODO: Name ${index + 1}`}</div>
               <div>{price}</div>
             </div>
