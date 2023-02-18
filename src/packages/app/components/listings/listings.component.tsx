@@ -1,28 +1,27 @@
 import { FunctionComponent } from 'react';
 import { Grid } from '../../../ui';
-
-const TODO_ITEMS = [
-  'Cell 1',
-  'Cell 2',
-  'Cell 3',
-  'Cell 4',
-  'Cell 5',
-  'Cell 6',
-  'Cell 7',
-];
+import { useFetchListings } from '../../hooks/useFetchListings.hook';
 
 export const Listings: FunctionComponent = () => {
+  const { items, finished } = useFetchListings(1);
+
+  // TODO
+  console.log(items, finished);
+
   return (
-    <Grid>
-      {TODO_ITEMS.map((name) => (
-        <div key={name} className="border">
-          <div>TODO_Image</div>
-          <div className="flex justify-between">
-            <div>{name}</div>
-            <div>TODO_Price</div>
+    <div>
+      <Grid>
+        {items.map(({ price, extra: { img } }, index) => (
+          <div key={index} className="border">
+            <img src={img} alt={`TODO: Image for name ${index + 1}`} />
+            <div className="flex justify-between">
+              <div>{`TODO: Name ${index + 1}`}</div>
+              <div>{price}</div>
+            </div>
           </div>
-        </div>
-      ))}
-    </Grid>
+        ))}
+      </Grid>
+      <div>TODO: Loading more awesome stuff...</div>
+    </div>
   );
 };
