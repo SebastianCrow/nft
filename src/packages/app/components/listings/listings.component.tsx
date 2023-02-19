@@ -1,9 +1,23 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { Card, Input } from '../../../ui';
 import { useFetchListings } from '../../hooks/useFetchListings';
 import { classes, usePrevious } from '../../../../shared';
 import { useFilterListings } from '../../hooks/useFilterListings';
+import { useResizeObserver } from '../../../../shared/hooks/useResizeObserver';
+
+const HEADER_HEIGHT_PX = 64; // TODO: Dynamic
+
+const ITEM_SPACING_PX = 16;
+
+const getItemCellStyle = (style: any) => ({
+  // TODO: Casting
+  ...style,
+  left: style.left + ITEM_SPACING_PX,
+  top: style.top + ITEM_SPACING_PX + HEADER_HEIGHT_PX,
+  width: style.width - ITEM_SPACING_PX,
+  height: style.height - ITEM_SPACING_PX,
+});
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,7 +37,7 @@ export const Listings: FunctionComponent = () => {
     }
   }, [fetchNextPage, page, prevPage]);
 
-  const COLUMNS = 3;
+  const COLUMNS = 3; // TODO: Responsive
 
   const Cell = ({ rowIndex, columnIndex, style }: any) => {
     const index = rowIndex * COLUMNS + columnIndex;
@@ -40,7 +54,7 @@ export const Listings: FunctionComponent = () => {
 
     if (!item && hasNextPage !== false) {
       return (
-        <div style={style}>
+        <div style={getItemCellStyle(style)}>
           <Card key={`loader-${rowIndex}-${columnIndex}`} loader>
             <div
               className={classes(
@@ -64,7 +78,7 @@ export const Listings: FunctionComponent = () => {
     } = item;
 
     return (
-      <div style={style}>
+      <div style={getItemCellStyle(style)}>
         <Card key={name} titleLeft={name} titleRight={price} loader>
           <img
             src={img}
@@ -76,30 +90,40 @@ export const Listings: FunctionComponent = () => {
     );
   };
 
-  const WINDOW_WIDTH = 832;
-  const WINDOW_HEIGHT = 888;
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  const gridSize = useResizeObserver({ ref: gridRef });
+  const { width, height } = gridSize ?? { width: 0, height: 0 };
+
+  console.log('sleposeb', width, height);
+
+  const ITEMS_TOTAL_WIDTH = width - ITEM_SPACING_PX;
+  const ITEM_WIDTH = Math.floor(ITEMS_TOTAL_WIDTH / COLUMNS);
+  const ITEM_HEIGHT = ITEM_WIDTH + 56;
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-center items-center">
+    <div className="h-full">
+      <div className="flex justify-center items-center absolute top-0 left-0 right-0 z-10 p-2 bg-red-500">
         <Input
           value={searchQuery}
           onValueChange={setSearchQuery}
           placeholder="Search NFT name"
         />
       </div>
-      <FixedSizeGrid
-        columnCount={COLUMNS}
-        columnWidth={Math.floor(WINDOW_WIDTH / COLUMNS)}
-        width={WINDOW_WIDTH}
-        rowCount={Math.ceil(
-          (filteredItems.length + (hasNextPage !== false ? 20 : 0)) / COLUMNS
-        )}
-        rowHeight={Math.floor(WINDOW_WIDTH / COLUMNS) + 56}
-        height={WINDOW_HEIGHT}
-      >
-        {Cell}
-      </FixedSizeGrid>
+      <div ref={gridRef} className="h-full">
+        <FixedSizeGrid
+          columnCount={COLUMNS}
+          columnWidth={ITEM_WIDTH}
+          width={width}
+          rowCount={Math.ceil(
+            (filteredItems.length + (hasNextPage !== false ? 20 : 0)) / COLUMNS
+          )}
+          rowHeight={ITEM_HEIGHT}
+          height={height}
+        >
+          {Cell}
+        </FixedSizeGrid>
+      </div>
     </div>
   );
 };
