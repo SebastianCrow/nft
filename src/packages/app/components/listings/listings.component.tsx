@@ -25,7 +25,7 @@ export const Listings: FunctionComponent = () => {
   const { data, isFetching, hasNextPage, fetchNextPage } = useFetchListings();
 
   const filteredItems = useFilterListings({
-    items: data?.pages.flatMap((page) => page) ?? [], // TODO: flat map
+    items: data?.pages.flatMap((page) => (page as any).items) ?? [], // TODO: flat map, casting
     searchQuery,
   });
 

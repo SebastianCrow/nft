@@ -28,20 +28,21 @@ export const useFetchListings = (): UseInfiniteQueryResult<ListingsItem> => {
     );
     // TODO: Check API errors, e.g. offset=NaN
     const items: ListingsItem[] = await res.json();
-    return items.map(({ price, extra }: ListingsItem, index) => ({
-      price,
-      extra,
-      name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
-    }));
+    return {
+      items: items.map(({ price, extra }: ListingsItem, index) => ({
+        price,
+        extra,
+        name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
+      })),
+      nextPage: items.length === ITEMS_PER_PAGE ? pageParam + 1 : undefined,
+    };
   };
 
   return useInfiniteQuery({
     queryKey: ['listings'],
     queryFn: fetchListings,
     getNextPageParam: (lastPage, pages) => {
-      return (lastPage as any).length === ITEMS_PER_PAGE // TODO: Casting
-        ? pages.length + 1
-        : undefined;
+      return (lastPage as any).nextPage; // TODO: Casting
     },
     retry: true,
     refetchOnWindowFocus: false,
