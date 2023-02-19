@@ -72,12 +72,12 @@ export const Listings: FunctionComponent = () => {
       return null;
     }
 
-    const nextPage = Math.floor(index / 20) + 1;
-    if (nextPage > page) {
-      setPage(nextPage);
-    }
-
     if (!item && hasNextPage !== false) {
+      const nextPage = Math.floor(index / 20) + 1;
+      if (nextPage > page) {
+        setPage(nextPage);
+      }
+
       return (
         <div style={getItemCellStyle(style)}>
           <Card key={`loader-${rowIndex}-${columnIndex}`} loader>
