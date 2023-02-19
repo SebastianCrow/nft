@@ -22,7 +22,8 @@ export const Listings: FunctionComponent = () => {
 
   const listEndRefs: RefObject<HTMLDivElement>[] = useMemo(
     () =>
-      new Array(1).fill({
+      new Array(20).fill({
+        // TODO
         current: null,
       }),
     []
@@ -60,13 +61,15 @@ export const Listings: FunctionComponent = () => {
         {hasNextPage !== false &&
           listEndRefs.map((ref, index) => (
             <Card key={index} loader>
-              <div
-                ref={ref}
-                className={classes(
-                  'absolute inset-0 z-10',
-                  isFetching ? 'hidden' : undefined
-                )}
-              />
+              {index === 0 && ( // TODO
+                <div
+                  ref={ref}
+                  className={classes(
+                    'absolute inset-0 z-10',
+                    isFetching ? 'hidden' : undefined
+                  )}
+                />
+              )}
             </Card>
           ))}
       </Grid>
