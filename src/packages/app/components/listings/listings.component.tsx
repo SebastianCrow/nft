@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { Card, Input } from '../../../ui';
 import { useFetchListings } from '../../hooks/useFetchListings';
@@ -37,10 +37,35 @@ export const Listings: FunctionComponent = () => {
     }
   }, [fetchNextPage, page, prevPage]);
 
-  const COLUMNS = 3; // TODO: Responsive
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  const gridSize = useResizeObserver({ ref: gridRef });
+  const { width, height } = gridSize ?? { width: 0, height: 0 };
+
+  const WIDTH_MULTIPLIER = 256;
+
+  const computedWidth = Math.min(width, 7 * WIDTH_MULTIPLIER);
+
+  const columnCount = useMemo(() => {
+    if (computedWidth >= 6 * WIDTH_MULTIPLIER) {
+      return 6;
+    } else if (computedWidth >= 5 * WIDTH_MULTIPLIER) {
+      return 5;
+    } else if (computedWidth >= 4 * WIDTH_MULTIPLIER) {
+      return 4;
+    } else if (computedWidth >= 3 * WIDTH_MULTIPLIER) {
+      return 3;
+    } else {
+      return 2;
+    }
+  }, [computedWidth]);
+
+  const ITEMS_TOTAL_WIDTH = computedWidth - ITEM_SPACING_PX;
+  const ITEM_WIDTH = Math.floor(ITEMS_TOTAL_WIDTH / columnCount);
+  const ITEM_HEIGHT = ITEM_WIDTH + 56;
 
   const Cell = ({ rowIndex, columnIndex, style }: any) => {
-    const index = rowIndex * COLUMNS + columnIndex;
+    const index = rowIndex * columnCount + columnIndex;
     const item = filteredItems[index];
 
     if (index >= filteredItems.length + 20) {
@@ -90,17 +115,6 @@ export const Listings: FunctionComponent = () => {
     );
   };
 
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  const gridSize = useResizeObserver({ ref: gridRef });
-  const { width, height } = gridSize ?? { width: 0, height: 0 };
-
-  console.log('sleposeb', width, height);
-
-  const ITEMS_TOTAL_WIDTH = width - ITEM_SPACING_PX;
-  const ITEM_WIDTH = Math.floor(ITEMS_TOTAL_WIDTH / COLUMNS);
-  const ITEM_HEIGHT = ITEM_WIDTH + 56;
-
   return (
     <div className="h-full">
       <div className="flex justify-center items-center absolute top-0 left-0 right-0 z-10 p-2 bg-red-500">
@@ -110,13 +124,14 @@ export const Listings: FunctionComponent = () => {
           placeholder="Search NFT name"
         />
       </div>
-      <div ref={gridRef} className="h-full">
+      <div ref={gridRef} className="h-full flex justify-center">
         <FixedSizeGrid
-          columnCount={COLUMNS}
+          columnCount={columnCount}
           columnWidth={ITEM_WIDTH}
-          width={width}
+          width={computedWidth}
           rowCount={Math.ceil(
-            (filteredItems.length + (hasNextPage !== false ? 20 : 0)) / COLUMNS
+            (filteredItems.length + (hasNextPage !== false ? 20 : 0)) /
+              columnCount
           )}
           rowHeight={ITEM_HEIGHT}
           height={height}
