@@ -1,20 +1,16 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Grid, Input } from '../../../ui';
 import { useFetchListings } from '../../hooks/useFetchListings';
-import {
-  classes,
-  useIntersectionObserver,
-  usePrevious,
-} from '../../../../shared';
+import { classes, useIntersectionObserver } from '../../../../shared';
 import { useFilterListings } from '../../hooks/useFilterListings';
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data, fetchNext } = useFetchListings();
+  const { data, isFetching, hasNextPage, fetchNextPage } = useFetchListings();
 
   const filteredItems = useFilterListings({
-    items: data.items,
+    items: data?.pages.flatMap((page) => page) ?? [], // TODO: flat map
     searchQuery,
   });
 
@@ -22,31 +18,13 @@ export const Listings: FunctionComponent = () => {
 
   const listEnd = useIntersectionObserver({
     ref: listEndRef,
-    defaultValue: true,
   });
 
   useEffect(() => {
-    console.log('sleposeb', data);
-  }, [data]);
-
-  useEffect(() => {
-    if (data.type === 'NotFetched') {
-      fetchNext();
+    if (!isFetching && listEnd) {
+      fetchNextPage();
     }
-    if (data.type === 'FetchedPartially' && listEnd) {
-      fetchNext();
-    }
-  }, [data.type, fetchNext, listEnd]);
-
-  // const prevIsFetching = usePrevious(isFetching);
-  // const prevListEnd = usePrevious(listEnd);
-  //
-  // useEffect(() => {
-  //   if (prevIsFetching && !isFetching && prevListEnd === false && listEnd) {
-  //     console.log('sleposeb', prevIsFetching, isFetching, prevListEnd, listEnd);
-  //     fetchNext();
-  //   }
-  // }, [fetchNext, isFetching, listEnd, prevIsFetching, prevListEnd]);
+  }, [fetchNextPage, isFetching, listEnd]);
 
   return (
     <div className="space-y-4">
@@ -75,18 +53,21 @@ export const Listings: FunctionComponent = () => {
           </div>
         ))}
       </Grid>
-      {data.type !== 'FetchedFully' && (
-        <div className="relative flex justify-center">
-          <div
-            ref={listEndRef}
-            className={classes(
-              'absolute left-0 w-4 h-4 bg-red-500', // TODO: bg
-              data.type === 'InProgress' ? 'hidden' : undefined
-            )}
-          />
-          <div>TODO: Spinner: Loading more awesome stuff...</div>
-        </div>
-      )}
+      <div
+        className={classes(
+          'relative flex justify-center',
+          hasNextPage === false ? 'hidden' : undefined
+        )}
+      >
+        <div
+          ref={listEndRef}
+          className={classes(
+            'absolute left-0 w-4 h-4 bg-red-500', // TODO: bg
+            isFetching ? 'hidden' : undefined
+          )}
+        />
+        <div>TODO: Spinner: Loading more awesome stuff...</div>
+      </div>
     </div>
   );
 };
