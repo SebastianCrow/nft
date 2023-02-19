@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 const BASE_URL =
   'https://api-mainnet.magiceden.dev/v2/collections/okay_bears/listings';
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 2; // TODO
 
 // TODO: Move types
 export interface ListingsItem {
@@ -15,42 +15,66 @@ export interface ListingsItem {
   };
 }
 
-interface ListingsResults {
-  items: ListingsItem[];
-  finished: boolean;
+interface UseFetchListingsReturn {
+  data: FetchingState;
+  fetchNext: () => void;
 }
 
-interface UseFetchListingsParams {
+interface FetchingState {
+  type: 'NotFetched' | 'InProgress' | 'FetchedPartially' | 'FetchedFully'; // TODO: Enum
   page: number;
+  items: ListingsItem[];
 }
 
-export const useFetchListings = ({ page }: UseFetchListingsParams) => {
-  const [data, setData] = useState<ListingsResults>({
+export const useFetchListings = (): UseFetchListingsReturn => {
+  const [fetchingState, setFetchingState] = useState<FetchingState>({
+    type: 'NotFetched',
+    page: 1,
     items: [],
-    finished: false,
   });
 
-  useEffect(() => {
-    if (page < 1) {
+  const fetchNext = useCallback(() => {
+    if (
+      fetchingState.type === 'InProgress' ||
+      fetchingState.type === 'FetchedFully'
+    ) {
+      // TODO: assert
       return;
     }
 
-    const offset = (page - 1) * ITEMS_PER_PAGE;
+    const nextPage =
+      fetchingState.type === 'NotFetched' ? 1 : fetchingState.page + 1;
+
+    setFetchingState((prevFetchingState) => ({
+      type: 'InProgress',
+      page: nextPage,
+      items: prevFetchingState.items,
+    }));
+
+    const offset = (nextPage - 1) * ITEMS_PER_PAGE;
     fetch(`${BASE_URL}?offset=${offset}&limit=${ITEMS_PER_PAGE}`)
       .then((response) => response.json())
       .then((items: ListingsItem[]) => {
-        setData((prevData) => ({
-          items: prevData.items.concat(
+        setFetchingState((prevFetchingState) => ({
+          type:
+            items.length < ITEMS_PER_PAGE ? 'FetchedFully' : 'FetchedPartially',
+          page: nextPage,
+          items: prevFetchingState.items.concat(
             items.map(({ price, extra }, index) => ({
               price,
               extra,
               name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
             }))
           ),
-          finished: items.length < ITEMS_PER_PAGE,
         }));
       });
-  }, [page]);
+  }, [fetchingState]);
 
-  return data;
+  return useMemo(
+    () => ({
+      data: fetchingState,
+      fetchNext,
+    }),
+    [fetchNext, fetchingState]
+  );
 };

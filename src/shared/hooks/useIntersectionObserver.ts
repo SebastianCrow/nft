@@ -3,13 +3,15 @@ import { RefObject, useEffect, useState } from 'react';
 interface UseIntersectionObserverParams {
   ref: RefObject<HTMLElement>;
   threshold?: number;
+  defaultValue?: boolean;
 }
 
 export const useIntersectionObserver = ({
   ref,
   threshold,
+  defaultValue = false,
 }: UseIntersectionObserverParams): boolean => {
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(defaultValue);
 
   useEffect(() => {
     const element = ref.current;
