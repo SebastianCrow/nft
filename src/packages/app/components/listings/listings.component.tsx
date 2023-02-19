@@ -1,4 +1,10 @@
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import {
+  FunctionComponent,
+  useEffect,
+  useState,
+  RefObject,
+  useMemo,
+} from 'react';
 import { Grid, Input } from '../../../ui';
 import { useFetchListings } from '../../hooks/useFetchListings';
 import { classes, useIntersectionObserver } from '../../../../shared';
@@ -14,10 +20,16 @@ export const Listings: FunctionComponent = () => {
     searchQuery,
   });
 
-  const listEndRef = useRef<HTMLDivElement>(null);
+  const listEndRefs: RefObject<HTMLDivElement>[] = useMemo(
+    () =>
+      new Array(1).fill({
+        current: null,
+      }),
+    []
+  );
 
   const listEnd = useIntersectionObserver({
-    ref: listEndRef,
+    refs: listEndRefs,
   });
 
   useEffect(() => {
@@ -52,22 +64,34 @@ export const Listings: FunctionComponent = () => {
             </div>
           </div>
         ))}
+        {listEndRefs.map((ref, index) => {
+          console.log('sleposeb', index);
+          return (
+            <div
+              key={index}
+              className={classes(
+                'rounded-xl overflow-hidden border',
+                hasNextPage === false ? 'hidden' : undefined
+              )}
+            >
+              <div className="relative aspect-square">
+                <div
+                  ref={ref}
+                  className={classes(
+                    'absolute inset-0 z-10 bg-red-500', // TODO: bg
+                    isFetching ? 'hidden' : undefined
+                  )}
+                />
+                <div className="absolute inset-0 z-0 animate-pulse bg-slate-200" />
+              </div>
+              <div className="flex justify-between p-4">
+                <div>NameA</div>
+                <div>PriceA</div>
+              </div>
+            </div>
+          );
+        })}
       </Grid>
-      <div
-        className={classes(
-          'relative flex justify-center',
-          hasNextPage === false ? 'hidden' : undefined
-        )}
-      >
-        <div
-          ref={listEndRef}
-          className={classes(
-            'absolute left-0 w-4 h-4 bg-red-500', // TODO: bg
-            isFetching ? 'hidden' : undefined
-          )}
-        />
-        <div>TODO: Spinner: Loading more awesome stuff...</div>
-      </div>
     </div>
   );
 };

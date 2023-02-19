@@ -1,19 +1,21 @@
 import { RefObject, useEffect, useState } from 'react';
 
 interface UseIntersectionObserverParams {
-  ref: RefObject<HTMLElement>;
+  refs: RefObject<HTMLElement>[];
   threshold?: number;
 }
 
 export const useIntersectionObserver = ({
-  ref,
+  refs,
   threshold,
 }: UseIntersectionObserverParams): boolean => {
   const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) {
+    const elements = refs
+      .map((ref) => ref.current)
+      .filter(Boolean) as HTMLElement[]; // TODO: Casting
+    if (!elements.length) {
       return;
     }
     const observer = new IntersectionObserver(
@@ -22,12 +24,14 @@ export const useIntersectionObserver = ({
       },
       { threshold }
     );
-    observer.observe(element);
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
 
     return () => {
       observer.disconnect();
     };
-  }, [ref, threshold]);
+  }, [refs, threshold]);
 
   return isIntersecting;
 };

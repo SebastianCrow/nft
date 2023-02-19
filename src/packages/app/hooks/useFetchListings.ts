@@ -39,7 +39,9 @@ export const useFetchListings = (): UseInfiniteQueryResult<ListingsItem> => {
     queryKey: ['listings'],
     queryFn: fetchListings,
     getNextPageParam: (lastPage, pages) => {
-      return pages.length + 1;
+      return (lastPage as any).length === ITEMS_PER_PAGE
+        ? pages.length + 1
+        : undefined; // TODO: Casting
     },
     retry: true,
     refetchOnWindowFocus: false,
