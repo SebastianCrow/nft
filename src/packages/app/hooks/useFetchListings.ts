@@ -21,6 +21,8 @@ export interface ListingsItem {
   };
 }
 
+const cacheRes: any = {};
+
 interface UseFetchListingsParams {
   searchQuery?: string;
 }
@@ -31,11 +33,14 @@ export const useFetchListings = ({
   // TODO: Abstract return type
   const fetchListings: QueryFunction = async ({ pageParam = 1 }) => {
     const offset = (pageParam - 1) * ITEMS_PER_PAGE;
-    const res = await fetch(
-      `${BASE_URL}?offset=${offset}&limit=${ITEMS_PER_PAGE}`
-    );
+    if (!cacheRes[pageParam]) {
+      cacheRes[pageParam] = fetch(
+        `${BASE_URL}?offset=${offset}&limit=${ITEMS_PER_PAGE}`
+      );
+    }
+    const res = await cacheRes[pageParam];
     // TODO: Check API errors, e.g. offset=NaN
-    const items: ListingsItem[] = await res.json();
+    const items: ListingsItem[] = await res.clone().json(); // TODO: think of clone
     return {
       items: items.map(({ price, extra }: ListingsItem, index) => ({
         price,
