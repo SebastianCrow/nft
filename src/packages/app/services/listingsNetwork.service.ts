@@ -26,11 +26,17 @@ export const fetchListings = async (page: number): Promise<ListingsPage> => {
   );
 
   return {
-    items: items.map(({ price, extra }: ListingsItem, index) => ({
-      name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
-      price: truncatePositive(price, 4),
-      extra,
-    })),
+    items: items.map((item, index) => mapListingsItem(item, index, offset)),
     nextPage: items.length === ITEMS_PER_PAGE ? page + 1 : undefined,
   };
 };
+
+const mapListingsItem = (
+  { price, extra }: ListingsItem,
+  index: number,
+  offset: number
+) => ({
+  name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
+  price: truncatePositive(price, 4),
+  extra,
+});
