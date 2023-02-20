@@ -6,6 +6,7 @@ import { classes, usePrevious } from '../../../../shared';
 import { useFilterListings } from '../../hooks/useFilterListings';
 import { useResizeObserver } from '../../../../shared/hooks/useResizeObserver';
 import { useScrollTop } from '../../../../shared/hooks/useScrollTop';
+import { Header } from '../header/header.component';
 
 const HEADER_HEIGHT_PX = 64; // TODO: Dynamic
 
@@ -49,8 +50,6 @@ export const Listings: FunctionComponent = () => {
 
   const gridContainerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLElement>(null);
-
-  const gridScrollTop = useScrollTop({ ref: gridRef });
 
   const gridSize = useResizeObserver({ ref: gridContainerRef });
   const { width, height } = gridSize ?? { width: 0, height: 0 };
@@ -121,23 +120,13 @@ export const Listings: FunctionComponent = () => {
     );
   };
 
-  const floatingHeader = gridScrollTop > 0;
-
   return (
     <div className="h-full bg">
-      <div
-        className={classes(
-          'flex justify-center items-center absolute top-0 left-0 right-0 z-10 p-2 bg',
-          'transition border-b',
-          floatingHeader ? 'border-b' : 'border-b-transparent'
-        )}
-      >
-        <Input
-          value={searchQuery}
-          onValueChange={setSearchQuery}
-          placeholder="Search NFT name"
-        />
-      </div>
+      <Header
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        scrollElementRef={gridRef}
+      />
       <div className="h-full flex justify-center" ref={gridContainerRef}>
         <FixedSizeGrid
           columnCount={columnCount}
