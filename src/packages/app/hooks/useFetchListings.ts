@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import {
   QueryFunction,
   UseInfiniteQueryResult,
   useInfiniteQuery,
 } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import LRUCache from 'lru-cache';
 
 const BASE_URL =
   'https://api-mainnet.magiceden.dev/v2/collections/okay_bears/listings';
@@ -20,24 +21,30 @@ export interface ListingsItem {
   };
 }
 
-const cacheRes: any = {};
-
 interface UseFetchListingsParams {
   searchQuery?: string;
 }
+
+// TODO: casting
+const cacheRes = new LRUCache<number, Promise<any>>({
+  max: 500,
+});
 
 export const useFetchListings = ({
   searchQuery,
 }: UseFetchListingsParams): UseInfiniteQueryResult<ListingsItem> => {
   // TODO: Abstract return type
-  const fetchListings: QueryFunction = async ({ pageParam = 1 }) => {
+  const fetchListings = async (pageParam = 1) => {
     const offset = (pageParam - 1) * ITEMS_PER_PAGE;
-    if (!cacheRes[pageParam]) {
-      cacheRes[pageParam] = fetch(
+    if (!cacheRes.has(pageParam)) {
+      const responsePromise = fetch(
         `${BASE_URL}?offset=${offset}&limit=${ITEMS_PER_PAGE}`
-      );
+      ).catch(() => {
+        cacheRes.delete(pageParam);
+      });
+      cacheRes.set(pageParam, responsePromise);
     }
-    const res = await cacheRes[pageParam];
+    const res = await cacheRes.get(pageParam);
     // TODO: Check API errors, e.g. offset=NaN
     const items: ListingsItem[] = await res.clone().json(); // TODO: think of clone
     return {
@@ -51,7 +58,7 @@ export const useFetchListings = ({
   };
 
   const fetchFilteredListings: QueryFunction = async (context) => {
-    const { items, nextPage } = (await fetchListings(context)) as any; // TODO: casting
+    const { items, nextPage } = (await fetchListings(context.pageParam)) as any; // TODO: casting
 
     const filteredItems = searchQuery
       ? items.filter(({ name }: ListingsItem) =>
@@ -66,7 +73,7 @@ export const useFetchListings = ({
   };
 
   const results = useInfiniteQuery({
-    queryKey: [searchQuery ? `listings-${searchQuery}` : 'listings'],
+    queryKey: ['listings', searchQuery],
     queryFn: fetchFilteredListings,
     getNextPageParam: (lastPage) => {
       return (lastPage as any).nextPage; // TODO: Casting
