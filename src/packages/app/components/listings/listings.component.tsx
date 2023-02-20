@@ -1,4 +1,11 @@
-import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  forwardRef,
+  FunctionComponent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { Card } from '../../../ui';
 import { ITEMS_PER_PAGE, useFetchListings } from '../../hooks/useFetchListings';
@@ -20,6 +27,21 @@ const getItemCellStyle = (style: any) => ({
   width: style.width - ITEM_SPACING_PX,
   height: style.height - ITEM_SPACING_PX,
 });
+
+// TODO
+// eslint-disable-next-line react/display-name
+const innerElementType = forwardRef<HTMLDivElement, { style: any }>(
+  ({ style, ...rest }, ref) => (
+    <div
+      ref={ref}
+      style={{
+        ...style,
+        height: style.height + HEADER_HEIGHT_PX + ITEM_SPACING_PX,
+      }}
+      {...rest}
+    />
+  )
+);
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -146,6 +168,7 @@ export const Listings: FunctionComponent = () => {
           rowHeight={ITEM_HEIGHT}
           height={height}
           outerRef={gridRef}
+          innerElementType={innerElementType}
         >
           {Cell}
         </FixedSizeGrid>
