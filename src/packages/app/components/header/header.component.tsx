@@ -1,7 +1,6 @@
 import { FunctionComponent, RefObject } from 'react';
-import { classes } from '../../../../shared';
+import { classes, useScrollTop } from '../../../../shared';
 import { Input } from '../../../ui';
-import { useScrollTop } from '../../../../shared/hooks/useScrollTop';
 
 interface HeaderProps {
   searchQuery: string;

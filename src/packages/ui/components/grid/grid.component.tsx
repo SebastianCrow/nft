@@ -3,26 +3,24 @@ import {
   FunctionComponent,
   MutableRefObject,
   useMemo,
-  useRef,
   CSSProperties,
   PropsWithChildren,
   ComponentType,
   createElement,
 } from 'react';
 import { FixedSizeGrid } from 'react-window';
-import { useResizeObserver } from '../../../../shared/hooks/useResizeObserver';
+import { GRID_ITEM_SPACING_PX, useGridLayout } from './useGridLayout';
+import { useGridSize } from './useGridSize';
 
 const HEADER_HEIGHT_PX = 64; // TODO: Dynamic
-
-const ITEM_SPACING_PX = 16;
 
 const computeGridCellStyle = (style: any) => ({
   // TODO: Casting
   ...style,
-  left: style.left + ITEM_SPACING_PX,
-  top: style.top + ITEM_SPACING_PX + HEADER_HEIGHT_PX,
-  width: style.width - ITEM_SPACING_PX,
-  height: style.height - ITEM_SPACING_PX,
+  left: style.left + GRID_ITEM_SPACING_PX,
+  top: style.top + GRID_ITEM_SPACING_PX + HEADER_HEIGHT_PX,
+  width: style.width - GRID_ITEM_SPACING_PX,
+  height: style.height - GRID_ITEM_SPACING_PX,
 });
 
 // TODO
@@ -33,7 +31,7 @@ const innerElementType = forwardRef<HTMLDivElement, { style: any }>(
       ref={ref}
       style={{
         ...style,
-        height: style.height + HEADER_HEIGHT_PX + ITEM_SPACING_PX,
+        height: style.height + HEADER_HEIGHT_PX + GRID_ITEM_SPACING_PX,
       }}
       {...rest}
     />
@@ -68,42 +66,21 @@ export const Grid: FunctionComponent<GridProps> = ({
   gridElementRef,
   children,
 }) => {
-  const gridContainerRef = useRef<HTMLDivElement>(null);
+  const { width, height, gridContainerRef } = useGridSize();
 
-  const gridSize = useResizeObserver({ ref: gridContainerRef });
-  const { width, height } = gridSize ?? { width: 0, height: 0 };
-
-  const WIDTH_MULTIPLIER = 256;
-  const computedWidth = Math.min(width, 7 * WIDTH_MULTIPLIER);
-
-  const columnCount = useMemo(() => {
-    if (computedWidth >= 6 * WIDTH_MULTIPLIER) {
-      return 6;
-    } else if (computedWidth >= 5 * WIDTH_MULTIPLIER) {
-      return 5;
-    } else if (computedWidth >= 4 * WIDTH_MULTIPLIER) {
-      return 4;
-    } else if (computedWidth >= 3 * WIDTH_MULTIPLIER) {
-      return 3;
-    } else {
-      return 2;
-    }
-  }, [computedWidth]);
-
-  const rowCount = Math.ceil(itemsCount / columnCount);
-
-  const ITEMS_TOTAL_WIDTH = computedWidth - ITEM_SPACING_PX;
-  const ITEM_WIDTH = Math.floor(ITEMS_TOTAL_WIDTH / columnCount);
-  const ITEM_HEIGHT = ITEM_WIDTH + 56; // TODO
+  const { rowCount, columnCount, rowHeight, columnWidth } = useGridLayout({
+    itemsCount,
+    gridWidth: width,
+  });
 
   return (
     <div className="h-full flex justify-center" ref={gridContainerRef}>
       <FixedSizeGrid
         columnCount={columnCount}
-        columnWidth={ITEM_WIDTH}
-        width={computedWidth}
+        columnWidth={columnWidth}
+        width={width}
         rowCount={rowCount}
-        rowHeight={ITEM_HEIGHT}
+        rowHeight={rowHeight}
         height={height}
         outerRef={gridElementRef}
         innerElementType={innerElementType}
