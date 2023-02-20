@@ -1,6 +1,5 @@
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import { FixedSizeGrid } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
 import { Card, Input } from '../../../ui';
 import { ITEMS_PER_PAGE, useFetchListings } from '../../hooks/useFetchListings';
 import { classes, usePrevious } from '../../../../shared';
@@ -126,32 +125,20 @@ export const Listings: FunctionComponent = () => {
         />
       </div>
       <div ref={gridRef} className="h-full flex justify-center">
-        <InfiniteLoader
-          isItemLoaded={() => false}
-          loadMoreItems={() => {
-            fetchNextPage();
-          }}
-          itemCount={filteredItems.length}
-        >
-          {({ onItemsRendered, ref }) => (
-            <FixedSizeGrid
-              columnCount={columnCount}
-              columnWidth={ITEM_WIDTH}
-              width={computedWidth}
-              rowCount={Math.ceil(
-                (filteredItems.length +
-                  (hasNextPage !== false ? ITEMS_PER_PAGE : 0)) /
-                  columnCount
-              )}
-              rowHeight={ITEM_HEIGHT}
-              height={height}
-              onItemsRendered={onItemsRendered as any}
-              ref={ref}
-            >
-              {Cell}
-            </FixedSizeGrid>
+        <FixedSizeGrid
+          columnCount={columnCount}
+          columnWidth={ITEM_WIDTH}
+          width={computedWidth}
+          rowCount={Math.ceil(
+            (filteredItems.length +
+              (hasNextPage !== false ? ITEMS_PER_PAGE : 0)) /
+              columnCount
           )}
-        </InfiniteLoader>
+          rowHeight={ITEM_HEIGHT}
+          height={height}
+        >
+          {Cell}
+        </FixedSizeGrid>
       </div>
     </div>
   );
