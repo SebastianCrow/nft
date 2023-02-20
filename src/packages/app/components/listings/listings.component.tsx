@@ -92,7 +92,7 @@ export const Listings: FunctionComponent = () => {
 
       return (
         <div style={getItemCellStyle(style)}>
-          <Card key={`loader-${rowIndex}-${columnIndex}`} loader />
+          <Card key={`loader-${rowIndex}-${columnIndex}`} />
         </div>
       );
     }
@@ -109,12 +109,8 @@ export const Listings: FunctionComponent = () => {
 
     return (
       <div style={getItemCellStyle(style)}>
-        <Card key={name} titleLeft={name} titleRight={price} loader>
-          <img
-            src={img}
-            alt={`Image for ${name}`}
-            className="absolute inset-0 z-10"
-          />
+        <Card key={name} titleLeft={name} titleRight={price}>
+          <img src={img} alt={`Image for ${name}`} />
         </Card>
       </div>
     );

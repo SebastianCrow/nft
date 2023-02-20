@@ -23,7 +23,7 @@ export const Input: FunctionComponent<InputProps> = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="bg-slate-100 py-3 px-6 rounded-lg"
+      className="py-3 px-6 rounded-lg bg-highlight placeholder:text-secondary"
     />
   );
 };
