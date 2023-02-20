@@ -11,13 +11,15 @@ import {
   ListingsPage,
 } from '../services/listingsNetwork.service';
 
+const LISTINGS_QUERY_KEY = 'listings';
+
 interface UseFetchListingsParams {
   searchQuery?: string;
 }
 
 interface UseFetchListingsReturn {
   items: ListingsItem[];
-  finished: boolean;
+  fetchingFinished: boolean;
   fetchNext: () => void;
 }
 
@@ -46,7 +48,7 @@ export const useFetchListings = ({
     hasNextPage,
     fetchNextPage,
   }: UseInfiniteQueryResult<ListingsPage> = useInfiniteQuery<ListingsPage>({
-    queryKey: ['listings', searchQuery],
+    queryKey: [LISTINGS_QUERY_KEY, searchQuery],
     queryFn: fetchFilteredListings,
     getNextPageParam: (lastPage) => lastPage.nextPage,
     retry: true,
@@ -64,7 +66,7 @@ export const useFetchListings = ({
   return useMemo(
     () => ({
       items: data?.pages.flatMap((page) => page.items) ?? [], // TODO: flat map, casting
-      finished: hasNextPage === false,
+      fetchingFinished: hasNextPage === false,
       fetchNext: fetchNextPage,
     }),
     [data?.pages, fetchNextPage, hasNextPage]
