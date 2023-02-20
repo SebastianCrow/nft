@@ -66,7 +66,7 @@ export const useFetchListings = ({
 
       filteredItems.push(
         ...pageResults.items.filter(({ name }: ListingsItem) =>
-          name.includes(searchQuery)
+          name.toLowerCase().includes(searchQuery.toLowerCase())
         )
       );
       nextPage = pageResults.nextPage;
