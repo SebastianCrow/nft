@@ -89,14 +89,7 @@ export const Listings: FunctionComponent = () => {
 
       return (
         <div style={getItemCellStyle(style)}>
-          <Card key={`loader-${rowIndex}-${columnIndex}`} loader>
-            <div
-              className={classes(
-                'absolute inset-0 z-10 bg-red-500',
-                isFetching ? 'hidden' : undefined
-              )}
-            />
-          </Card>
+          <Card key={`loader-${rowIndex}-${columnIndex}`} loader />
         </div>
       );
     }

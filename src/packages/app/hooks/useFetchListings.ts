@@ -80,11 +80,7 @@ export const useFetchListings = ({
 
   return useInfiniteQuery({
     queryKey: [searchQuery ? `listings-${searchQuery}` : 'listings'],
-    queryFn: async (context) => {
-      const results = await fetchFilteredListings(context);
-      console.log('sleposeb', 'results', results);
-      return results;
-    },
+    queryFn: fetchFilteredListings,
     getNextPageParam: (lastPage) => {
       return (lastPage as any).nextPage; // TODO: Casting
     },
