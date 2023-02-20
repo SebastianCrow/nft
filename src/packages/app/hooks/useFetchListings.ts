@@ -7,7 +7,7 @@ import {
 const BASE_URL =
   'https://api-mainnet.magiceden.dev/v2/collections/okay_bears/listings';
 
-const ITEMS_PER_PAGE = 20;
+export const ITEMS_PER_PAGE = 20;
 
 // TODO: Move types
 export interface ListingsItem {
@@ -41,7 +41,7 @@ export const useFetchListings = (): UseInfiniteQueryResult<ListingsItem> => {
   return useInfiniteQuery({
     queryKey: ['listings'],
     queryFn: fetchListings,
-    getNextPageParam: (lastPage, pages) => {
+    getNextPageParam: (lastPage) => {
       return (lastPage as any).nextPage; // TODO: Casting
     },
     retry: true,

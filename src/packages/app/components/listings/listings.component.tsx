@@ -1,7 +1,8 @@
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import { FixedSizeGrid } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
 import { Card, Input } from '../../../ui';
-import { useFetchListings } from '../../hooks/useFetchListings';
+import { ITEMS_PER_PAGE, useFetchListings } from '../../hooks/useFetchListings';
 import { classes, usePrevious } from '../../../../shared';
 import { useFilterListings } from '../../hooks/useFilterListings';
 import { useResizeObserver } from '../../../../shared/hooks/useResizeObserver';
@@ -68,12 +69,12 @@ export const Listings: FunctionComponent = () => {
     const index = rowIndex * columnCount + columnIndex;
     const item = filteredItems[index];
 
-    if (index >= filteredItems.length + 20) {
+    if (index >= filteredItems.length + ITEMS_PER_PAGE) {
       return null;
     }
 
     if (!item && hasNextPage !== false) {
-      const nextPage = Math.floor(index / 20) + 1;
+      const nextPage = Math.floor(index / ITEMS_PER_PAGE) + 1;
       if (nextPage > page) {
         setPage(nextPage);
       }
@@ -125,19 +126,32 @@ export const Listings: FunctionComponent = () => {
         />
       </div>
       <div ref={gridRef} className="h-full flex justify-center">
-        <FixedSizeGrid
-          columnCount={columnCount}
-          columnWidth={ITEM_WIDTH}
-          width={computedWidth}
-          rowCount={Math.ceil(
-            (filteredItems.length + (hasNextPage !== false ? 20 : 0)) /
-              columnCount
-          )}
-          rowHeight={ITEM_HEIGHT}
-          height={height}
+        <InfiniteLoader
+          isItemLoaded={() => false}
+          loadMoreItems={() => {
+            fetchNextPage();
+          }}
+          itemCount={filteredItems.length}
         >
-          {Cell}
-        </FixedSizeGrid>
+          {({ onItemsRendered, ref }) => (
+            <FixedSizeGrid
+              columnCount={columnCount}
+              columnWidth={ITEM_WIDTH}
+              width={computedWidth}
+              rowCount={Math.ceil(
+                (filteredItems.length +
+                  (hasNextPage !== false ? ITEMS_PER_PAGE : 0)) /
+                  columnCount
+              )}
+              rowHeight={ITEM_HEIGHT}
+              height={height}
+              onItemsRendered={onItemsRendered as any}
+              ref={ref}
+            >
+              {Cell}
+            </FixedSizeGrid>
+          )}
+        </InfiniteLoader>
       </div>
     </div>
   );
