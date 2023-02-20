@@ -1,9 +1,10 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Card, Grid, GridCellProps } from '../../../ui';
-import { ITEMS_PER_PAGE, useFetchListings } from '../../hooks/useFetchListings';
+import { useFetchListings } from '../../hooks/useFetchListings';
 import { usePrevious } from '../../../../shared';
 import { Header } from '../header/header.component';
 import { ReactComponent as LogoSolana } from '../../../../resources/logo-solana.svg';
+import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
