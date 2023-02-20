@@ -1,8 +1,7 @@
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import { Card, Grid, GridCellProps } from '../../../ui';
 import { ITEMS_PER_PAGE, useFetchListings } from '../../hooks/useFetchListings';
 import { usePrevious } from '../../../../shared';
-import { useFilterListings } from '../../hooks/useFilterListings';
 import { Header } from '../header/header.component';
 import { ReactComponent as LogoSolana } from '../../../../resources/logo-solana.svg';
 
@@ -13,10 +12,9 @@ export const Listings: FunctionComponent = () => {
     searchQuery,
   });
 
-  const filteredItems = useFilterListings({
-    items: data?.pages.flatMap((page) => (page as any).items) ?? [], // TODO: flat map, casting
-    searchQuery,
-  });
+  const items = useMemo(() => {
+    return data?.pages.flatMap((page) => (page as any).items) ?? []; // TODO: flat map, casting
+  }, [data?.pages]);
 
   const [page, setPage] = useState(1);
   const prevPage = usePrevious(page);
@@ -33,16 +31,16 @@ export const Listings: FunctionComponent = () => {
     }
   }, [prevSearchQuery, searchQuery]);
 
-  const gridRef = useRef<HTMLElement>(null);
+  const gridElementRef = useRef<HTMLElement>(null);
 
   const ListingsCell = ({
     rowIndex,
     columnIndex,
     itemIndex,
   }: GridCellProps) => {
-    const item = filteredItems[itemIndex];
+    const item = items[itemIndex];
 
-    if (itemIndex >= filteredItems.length + ITEMS_PER_PAGE) {
+    if (itemIndex >= items.length + ITEMS_PER_PAGE) {
       return null;
     }
 
@@ -87,13 +85,11 @@ export const Listings: FunctionComponent = () => {
       <Header
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        scrollElementRef={gridRef}
+        scrollElementRef={gridElementRef}
       />
       <Grid
-        itemsCount={
-          filteredItems.length + (hasNextPage !== false ? ITEMS_PER_PAGE : 0)
-        }
-        gridElementRef={gridRef}
+        itemsCount={items.length + (hasNextPage !== false ? ITEMS_PER_PAGE : 0)}
+        gridElementRef={gridElementRef}
       >
         {ListingsCell}
       </Grid>
