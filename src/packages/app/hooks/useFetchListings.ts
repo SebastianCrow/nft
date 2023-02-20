@@ -3,8 +3,7 @@ import {
   UseInfiniteQueryResult,
   useInfiniteQuery,
 } from '@tanstack/react-query';
-import { Simulate } from 'react-dom/test-utils';
-import contextMenu = Simulate.contextMenu;
+import { useEffect } from 'react';
 
 const BASE_URL =
   'https://api-mainnet.magiceden.dev/v2/collections/okay_bears/listings';
@@ -52,25 +51,13 @@ export const useFetchListings = ({
   };
 
   const fetchFilteredListings: QueryFunction = async (context) => {
-    if (!searchQuery) {
-      return fetchListings(context);
-    }
+    const { items, nextPage } = (await fetchListings(context)) as any; // TODO: casting
 
-    const filteredItems = [];
-    let nextPage = context.pageParam ?? 1;
-    while (filteredItems.length < ITEMS_PER_PAGE && nextPage) {
-      const pageResults = (await fetchListings({
-        ...context,
-        pageParam: nextPage,
-      })) as any; // TODO: casting
-
-      filteredItems.push(
-        ...pageResults.items.filter(({ name }: ListingsItem) =>
+    const filteredItems = searchQuery
+      ? items.filter(({ name }: ListingsItem) =>
           name.toLowerCase().includes(searchQuery.toLowerCase())
         )
-      );
-      nextPage = pageResults.nextPage;
-    }
+      : items;
 
     return {
       items: filteredItems,
@@ -78,7 +65,7 @@ export const useFetchListings = ({
     };
   };
 
-  return useInfiniteQuery({
+  const results = useInfiniteQuery({
     queryKey: [searchQuery ? `listings-${searchQuery}` : 'listings'],
     queryFn: fetchFilteredListings,
     getNextPageParam: (lastPage) => {
@@ -86,5 +73,15 @@ export const useFetchListings = ({
     },
     retry: true,
     refetchOnWindowFocus: false,
-  });
+  }) as any;
+
+  useEffect(() => {
+    const pages = results.data?.pages ?? [{ items: [] }];
+    const lastPageItems = pages[pages.length - 1].items;
+    if (lastPageItems.length < ITEMS_PER_PAGE && results.hasNextPage) {
+      results.fetchNextPage();
+    }
+  }, [results]);
+
+  return results;
 };
