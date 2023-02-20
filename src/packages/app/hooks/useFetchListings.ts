@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   QueryFunction,
   UseInfiniteQueryResult,
@@ -7,10 +7,20 @@ import {
 import LRUCache from 'lru-cache';
 import { truncatePositive } from '../../../shared/utils/numbers.util';
 
+// TODO: casting
+const cacheRes = new LRUCache<number, Promise<any>>({
+  max: 500,
+});
+
 const BASE_URL =
   'https://api-mainnet.magiceden.dev/v2/collections/okay_bears/listings';
 
 export const ITEMS_PER_PAGE = 20;
+
+interface ListingsPage {
+  items: ListingsItem[];
+  nextPage: number | undefined;
+}
 
 // TODO: Move types
 export interface ListingsItem {
@@ -26,14 +36,15 @@ interface UseFetchListingsParams {
   searchQuery?: string;
 }
 
-// TODO: casting
-const cacheRes = new LRUCache<number, Promise<any>>({
-  max: 500,
-});
+interface UseFetchListingsReturn {
+  items: ListingsItem[];
+  finished: boolean;
+  fetchNext: () => void;
+}
 
 export const useFetchListings = ({
   searchQuery,
-}: UseFetchListingsParams): UseInfiniteQueryResult<ListingsItem> => {
+}: UseFetchListingsParams): UseFetchListingsReturn => {
   // TODO: Abstract return type
   const fetchListings = async (pageParam = 1) => {
     const offset = (pageParam - 1) * ITEMS_PER_PAGE;
@@ -73,7 +84,11 @@ export const useFetchListings = ({
     };
   };
 
-  const results = useInfiniteQuery({
+  const {
+    data,
+    hasNextPage,
+    fetchNextPage,
+  }: UseInfiniteQueryResult<ListingsPage> = useInfiniteQuery({
     queryKey: ['listings', searchQuery],
     queryFn: fetchFilteredListings,
     getNextPageParam: (lastPage) => {
@@ -81,15 +96,22 @@ export const useFetchListings = ({
     },
     retry: true,
     refetchOnWindowFocus: false,
-  }) as any;
+  });
 
   useEffect(() => {
-    const pages = results.data?.pages ?? [{ items: [] }];
+    const pages = data?.pages ?? [{ items: [] }];
     const lastPageItems = pages[pages.length - 1].items;
-    if (lastPageItems.length < ITEMS_PER_PAGE && results.hasNextPage) {
-      results.fetchNextPage();
+    if (lastPageItems.length < ITEMS_PER_PAGE && hasNextPage) {
+      fetchNextPage();
     }
-  }, [results]);
+  }, [data?.pages, fetchNextPage, hasNextPage]);
 
-  return results;
+  return useMemo(
+    () => ({
+      items: data?.pages.flatMap((page) => page.items) ?? [], // TODO: flat map, casting
+      finished: hasNextPage === false,
+      fetchNext: fetchNextPage,
+    }),
+    [data?.pages, fetchNextPage, hasNextPage]
+  );
 };

@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
+import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Card, Grid, GridCellProps } from '../../../ui';
 import { ITEMS_PER_PAGE, useFetchListings } from '../../hooks/useFetchListings';
 import { usePrevious } from '../../../../shared';
@@ -8,21 +8,17 @@ import { ReactComponent as LogoSolana } from '../../../../resources/logo-solana.
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data, hasNextPage, fetchNextPage } = useFetchListings({
+  const { items, finished, fetchNext } = useFetchListings({
     searchQuery,
   });
-
-  const items = useMemo(() => {
-    return data?.pages.flatMap((page) => (page as any).items) ?? []; // TODO: flat map, casting
-  }, [data?.pages]);
 
   const [page, setPage] = useState(1);
   const prevPage = usePrevious(page);
   useEffect(() => {
     if (!prevPage || page > prevPage) {
-      fetchNextPage();
+      fetchNext();
     }
-  }, [fetchNextPage, page, prevPage]);
+  }, [fetchNext, page, prevPage]);
 
   const prevSearchQuery = usePrevious(searchQuery);
   useEffect(() => {
@@ -44,7 +40,7 @@ export const Listings: FunctionComponent = () => {
       return null;
     }
 
-    if (!item && hasNextPage !== false) {
+    if (!item && !finished) {
       const nextPage = Math.floor(itemIndex / ITEMS_PER_PAGE) + 1;
       if (nextPage > page) {
         setPage(nextPage);
@@ -88,7 +84,7 @@ export const Listings: FunctionComponent = () => {
         scrollElementRef={gridElementRef}
       />
       <Grid
-        itemsCount={items.length + (hasNextPage !== false ? ITEMS_PER_PAGE : 0)}
+        itemsCount={items.length + (!finished ? ITEMS_PER_PAGE : 0)}
         gridElementRef={gridElementRef}
       >
         {ListingsCell}
