@@ -39,6 +39,13 @@ export const Listings: FunctionComponent = () => {
     }
   }, [fetchNextPage, page, prevPage]);
 
+  const prevSearchQuery = usePrevious(searchQuery);
+  useEffect(() => {
+    if (prevSearchQuery !== searchQuery) {
+      setPage(1);
+    }
+  }, [prevSearchQuery, searchQuery]);
+
   const gridRef = useRef<HTMLDivElement>(null);
 
   const gridSize = useResizeObserver({ ref: gridRef });
