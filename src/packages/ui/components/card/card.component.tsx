@@ -2,8 +2,8 @@ import { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
 import { classes } from '../../../../shared';
 
 interface CardProps {
-  titleLeft?: string | number;
-  titleRight?: string | number;
+  titleLeft?: ReactNode;
+  titleRight?: ReactNode;
 }
 
 export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
@@ -23,13 +23,9 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
         <div className="absolute inset-0 z-10">{children}</div>
         <div className="absolute inset-0 z-0 animate-pulse bg-loader" />
       </div>
-      <div className="flex justify-between p-4 space-x-4 font-semibold text-secondary">
-        {titleLeft ? (
-          <div className="truncate">{titleLeft}</div>
-        ) : (
-          Loader('px-12')
-        )}
-        {titleRight ? <div>{titleRight}</div> : Loader('px-6')}
+      <div className="flex items-center justify-between p-4 space-x-4 font-semibold text-secondary">
+        {titleLeft ?? Loader('px-12')}
+        {titleRight ?? Loader('px-6')}
       </div>
     </div>
   );

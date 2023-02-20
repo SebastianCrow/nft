@@ -5,6 +5,7 @@ import {
   useInfiniteQuery,
 } from '@tanstack/react-query';
 import LRUCache from 'lru-cache';
+import { truncatePositive } from '../../../shared/utils/numbers.util';
 
 const BASE_URL =
   'https://api-mainnet.magiceden.dev/v2/collections/okay_bears/listings';
@@ -49,9 +50,9 @@ export const useFetchListings = ({
     const items: ListingsItem[] = await res.clone().json(); // TODO: think of clone
     return {
       items: items.map(({ price, extra }: ListingsItem, index) => ({
-        price,
-        extra,
         name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
+        price: truncatePositive(price, 4),
+        extra,
       })),
       nextPage: items.length === ITEMS_PER_PAGE ? pageParam + 1 : undefined,
     };

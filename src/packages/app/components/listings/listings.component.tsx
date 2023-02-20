@@ -1,12 +1,12 @@
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import { FixedSizeGrid } from 'react-window';
-import { Card, Input } from '../../../ui';
+import { Card } from '../../../ui';
 import { ITEMS_PER_PAGE, useFetchListings } from '../../hooks/useFetchListings';
-import { classes, usePrevious } from '../../../../shared';
+import { usePrevious } from '../../../../shared';
 import { useFilterListings } from '../../hooks/useFilterListings';
 import { useResizeObserver } from '../../../../shared/hooks/useResizeObserver';
-import { useScrollTop } from '../../../../shared/hooks/useScrollTop';
 import { Header } from '../header/header.component';
+import { ReactComponent as LogoSolana } from '../../../../resources/logo-solana.svg';
 
 const HEADER_HEIGHT_PX = 64; // TODO: Dynamic
 
@@ -24,7 +24,7 @@ const getItemCellStyle = (style: any) => ({
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data, isFetching, hasNextPage, fetchNextPage } = useFetchListings({
+  const { data, hasNextPage, fetchNextPage } = useFetchListings({
     searchQuery,
   });
 
@@ -109,7 +109,17 @@ export const Listings: FunctionComponent = () => {
 
     return (
       <div style={getItemCellStyle(style)}>
-        <Card key={name} titleLeft={name} titleRight={price}>
+        <Card
+          key={name}
+          titleLeft={<div className="truncate">{name}</div>}
+          titleRight={
+            <div className="flex items-center space-x-1.5">
+              {/* TODO: SVG size? */}
+              <LogoSolana width={14.83} height={12} />
+              <div>{price}</div>
+            </div>
+          }
+        >
           <img src={img} alt={`Image for ${name}`} />
         </Card>
       </div>
