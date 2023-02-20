@@ -3,6 +3,8 @@ import {
   UseInfiniteQueryResult,
   useInfiniteQuery,
 } from '@tanstack/react-query';
+import { Simulate } from 'react-dom/test-utils';
+import contextMenu = Simulate.contextMenu;
 
 const BASE_URL =
   'https://api-mainnet.magiceden.dev/v2/collections/okay_bears/listings';
@@ -19,7 +21,13 @@ export interface ListingsItem {
   };
 }
 
-export const useFetchListings = (): UseInfiniteQueryResult<ListingsItem> => {
+interface UseFetchListingsParams {
+  searchQuery?: string;
+}
+
+export const useFetchListings = ({
+  searchQuery,
+}: UseFetchListingsParams): UseInfiniteQueryResult<ListingsItem> => {
   // TODO: Abstract return type
   const fetchListings: QueryFunction = async ({ pageParam = 1 }) => {
     const offset = (pageParam - 1) * ITEMS_PER_PAGE;
@@ -38,9 +46,40 @@ export const useFetchListings = (): UseInfiniteQueryResult<ListingsItem> => {
     };
   };
 
+  const fetchFilteredListings: QueryFunction = async (context) => {
+    if (!searchQuery) {
+      return fetchListings(context);
+    }
+
+    const filteredItems = [];
+    let nextPage = context.pageParam ?? 1;
+    while (filteredItems.length < ITEMS_PER_PAGE && nextPage) {
+      const pageResults = (await fetchListings({
+        ...context,
+        pageParam: nextPage,
+      })) as any; // TODO: casting
+
+      filteredItems.push(
+        ...pageResults.items.filter(({ name }: ListingsItem) =>
+          name.includes(searchQuery)
+        )
+      );
+      nextPage = pageResults.nextPage;
+    }
+
+    return {
+      items: filteredItems,
+      nextPage,
+    };
+  };
+
   return useInfiniteQuery({
-    queryKey: ['listings'],
-    queryFn: fetchListings,
+    queryKey: [searchQuery ? `listings-${searchQuery}` : 'listings'],
+    queryFn: async (context) => {
+      const results = await fetchFilteredListings(context);
+      console.log('sleposeb', 'results', results);
+      return results;
+    },
     getNextPageParam: (lastPage) => {
       return (lastPage as any).nextPage; // TODO: Casting
     },

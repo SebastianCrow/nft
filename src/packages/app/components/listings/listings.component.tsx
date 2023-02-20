@@ -22,7 +22,9 @@ const getItemCellStyle = (style: any) => ({
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data, isFetching, hasNextPage, fetchNextPage } = useFetchListings();
+  const { data, isFetching, hasNextPage, fetchNextPage } = useFetchListings({
+    searchQuery,
+  });
 
   const filteredItems = useFilterListings({
     items: data?.pages.flatMap((page) => (page as any).items) ?? [], // TODO: flat map, casting
