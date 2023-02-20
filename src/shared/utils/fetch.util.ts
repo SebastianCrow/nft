@@ -13,7 +13,7 @@ export const fetchCached = async <T>(
   init?: RequestInit
 ): Promise<T> => {
   if (!cache.has(url)) {
-    const fetchPromise = fetch(url, { ...init, cache: 'force-cache' })
+    const fetchPromise = fetch(url, init)
       .then((res) => {
         if (!validateResponse(res)) {
           return Promise.reject(new Error(`Error status code: ${res.status}`));

@@ -1,19 +1,24 @@
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import { Card, Grid, GridCellProps } from '../../../ui';
 import { useFetchListings } from '../../hooks/useFetchListings';
 import { usePrevious } from '../../../../shared';
 import { Header } from '../header/header.component';
 import { ReactComponent as LogoSolana } from '../../../../resources/logo-solana.svg';
-import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
+import {
+  ITEMS_PER_PAGE,
+  ListingsItem,
+} from '../../services/listingsNetwork.service';
+import { useListingsPage } from './useListingsPage';
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
+
+  const { page, goToPage, resetToFirstPage } = useListingsPage();
 
   const { items, finished, fetchNext } = useFetchListings({
     searchQuery,
   });
 
-  const [page, setPage] = useState(1);
   const prevPage = usePrevious(page);
   useEffect(() => {
     if (!prevPage || page > prevPage) {
@@ -24,42 +29,38 @@ export const Listings: FunctionComponent = () => {
   const prevSearchQuery = usePrevious(searchQuery);
   useEffect(() => {
     if (prevSearchQuery !== searchQuery) {
-      setPage(1);
+      resetToFirstPage();
     }
-  }, [prevSearchQuery, searchQuery]);
+  }, [prevSearchQuery, resetToFirstPage, searchQuery]);
 
   const gridElementRef = useRef<HTMLElement>(null);
 
-  const ListingsCell = ({
+  const itemsCount = useMemo(
+    () => items.length + (!finished ? ITEMS_PER_PAGE : 0),
+    [finished, items.length]
+  );
+
+  const ListingsLoadingCard = ({
     rowIndex,
     columnIndex,
     itemIndex,
   }: GridCellProps) => {
-    const item = items[itemIndex];
-
-    if (itemIndex >= items.length + ITEMS_PER_PAGE) {
-      return null;
+    const nextPage = Math.floor(itemIndex / ITEMS_PER_PAGE) + 1;
+    if (nextPage > page) {
+      goToPage(nextPage);
     }
+    return <Card key={`loader-${rowIndex}-${columnIndex}`} />;
+  };
 
-    if (!item && !finished) {
-      const nextPage = Math.floor(itemIndex / ITEMS_PER_PAGE) + 1;
-      if (nextPage > page) {
-        setPage(nextPage);
-      }
-
-      return <Card key={`loader-${rowIndex}-${columnIndex}`} />;
-    }
-
-    if (!item) {
-      return null;
-    }
-
-    const {
+  const ListingsItemCard = ({
+    item: {
       name,
       price,
       extra: { img },
-    } = item;
-
+    },
+  }: {
+    item: ListingsItem;
+  }) => {
     return (
       <Card
         key={name}
@@ -77,6 +78,30 @@ export const Listings: FunctionComponent = () => {
     );
   };
 
+  const ListingsCard = ({
+    rowIndex,
+    columnIndex,
+    itemIndex,
+  }: GridCellProps) => {
+    if (itemIndex >= items.length + ITEMS_PER_PAGE) {
+      return null;
+    }
+
+    const item = items[itemIndex];
+
+    if (!item) {
+      return !finished ? (
+        <ListingsLoadingCard
+          rowIndex={rowIndex}
+          columnIndex={columnIndex}
+          itemIndex={itemIndex}
+        />
+      ) : null;
+    }
+
+    return <ListingsItemCard item={item} />;
+  };
+
   return (
     <div className="h-full bg">
       <Header
@@ -84,11 +109,8 @@ export const Listings: FunctionComponent = () => {
         setSearchQuery={setSearchQuery}
         scrollElementRef={gridElementRef}
       />
-      <Grid
-        itemsCount={items.length + (!finished ? ITEMS_PER_PAGE : 0)}
-        gridElementRef={gridElementRef}
-      >
-        {ListingsCell}
+      <Grid itemsCount={itemsCount} gridElementRef={gridElementRef}>
+        {ListingsCard}
       </Grid>
     </div>
   );
