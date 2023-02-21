@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface UseDebounceParams<T> {
+export interface UseDebounceParams<T> {
   value: T;
   delay: number;
 }
