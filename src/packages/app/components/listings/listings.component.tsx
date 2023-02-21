@@ -12,18 +12,21 @@ import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
 import { useListingsPage } from '../../hooks/useListingsPage';
 import { ListingsCard } from './listingsCard.component';
 import { classes } from '../../../../shared';
+import { useDebounce } from '../../../../shared/hooks/useDebounce';
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
+  const debouncedSearchQuery = useDebounce({ value: searchQuery, delay: 100 });
+
   const gridElementRef = useRef<HTMLElement>(null);
 
   const { items, fetchingFinished, fetchNext } = useFetchListings({
-    searchQuery,
+    searchQuery: debouncedSearchQuery,
   });
 
   const { page, goToPage } = useListingsPage({
-    searchQuery,
+    searchQuery: debouncedSearchQuery,
     fetchNext,
   });
 
