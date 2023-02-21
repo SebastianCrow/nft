@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, ReactElement } from 'react';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Grid, MessagePanel } from '../../../ui';
 import { useFetchListings } from '../../hooks/useFetchListings';
@@ -57,7 +57,7 @@ export const Listings: FunctionComponent = () => {
       )}
       {itemsCount && (
         <Grid itemsCount={itemsCount} gridElementRef={gridElementRef}>
-          {(gridCellProps) => (
+          {(gridCellProps): ReactElement => (
             <ListingsCard
               {...gridCellProps}
               items={items}

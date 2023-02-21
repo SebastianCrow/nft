@@ -1,3 +1,4 @@
-// TODO: Optional type?
-export const classes = (...classes: (string | undefined)[]) =>
+import type { Optional } from './typescript.util';
+
+export const classes = (...classes: Optional<string>[]): string =>
   classes.filter(Boolean).join(' ');

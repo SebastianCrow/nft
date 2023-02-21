@@ -8,7 +8,7 @@ interface UseFetchNextPageParams {
 export const useFetchItemsOnPageChange = ({
   page,
   fetchNext,
-}: UseFetchNextPageParams) => {
+}: UseFetchNextPageParams): void => {
   const prevPage = usePrevious(page);
   useEffect(() => {
     if (!prevPage || page > prevPage) {

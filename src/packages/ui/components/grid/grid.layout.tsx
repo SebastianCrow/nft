@@ -1,9 +1,10 @@
+import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { GRID_ITEM_SPACING_PX } from './useGridLayout';
 
 const HEADER_HEIGHT_PX = 64; // TODO: Dynamic
 
-export const computeGridCellStyle = (style: any) => ({
+export const computeGridCellStyle = (style: any): CSSProperties => ({
   // TODO: Casting
   ...style,
   left: style.left + GRID_ITEM_SPACING_PX,

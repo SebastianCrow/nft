@@ -1,4 +1,9 @@
-import type { FunctionComponent, MutableRefObject, ComponentType } from 'react';
+import type {
+  FunctionComponent,
+  MutableRefObject,
+  ComponentType,
+  ReactElement,
+} from 'react';
 import { createElement } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { useGridLayout } from './useGridLayout';
@@ -37,7 +42,7 @@ export const Grid: FunctionComponent<GridProps> = ({
         outerRef={gridElementRef}
         innerElementType={gridInnerElementType}
       >
-        {({ rowIndex, columnIndex, style }) => {
+        {({ rowIndex, columnIndex, style }): ReactElement => {
           const itemIndex = rowIndex * columnCount + columnIndex;
           const cell = createElement<GridCellProps>(children, {
             rowIndex,

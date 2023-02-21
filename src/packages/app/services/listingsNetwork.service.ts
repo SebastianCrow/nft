@@ -1,3 +1,4 @@
+import type { Optional } from '../../../shared';
 import { fetchCached, truncatePositive } from '../../../shared';
 
 export const ITEMS_PER_PAGE = 20;
@@ -7,7 +8,7 @@ const BASE_URL =
 
 export interface ListingsPage {
   items: ListingsItem[];
-  nextPage: number | undefined;
+  nextPage: Optional<number>;
 }
 
 export interface ListingsItem {
@@ -35,7 +36,7 @@ const mapListingsItem = (
   { price, extra }: ListingsItem,
   index: number,
   offset: number
-) => ({
+): ListingsItem => ({
   name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
   price: truncatePositive(price, 4),
   extra,

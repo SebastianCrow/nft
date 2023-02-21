@@ -5,7 +5,7 @@ const cache = new LRUCache<string, Promise<Response>>({
   max: 500,
 });
 
-const validateResponse = ({ status }: Response) =>
+const validateResponse = ({ status }: Response): boolean =>
   status >= 200 && status <= 299;
 
 export const fetchCached = async <T>(
@@ -29,5 +29,5 @@ export const fetchCached = async <T>(
   }
 
   const res = await ensureDefined(cache.get(url));
-  return res.clone().json(); // TODO: Think of clone
+  return res.clone().json();
 };

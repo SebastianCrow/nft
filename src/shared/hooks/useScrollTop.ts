@@ -14,9 +14,7 @@ export const useScrollTop = ({ ref }: UseScrollTopParams): number => {
       return;
     }
 
-    const onScroll = () => {
-      setScrollTop(element.scrollTop);
-    };
+    const onScroll = () => void setScrollTop(element.scrollTop);
 
     element.addEventListener('scroll', onScroll);
     return () => {

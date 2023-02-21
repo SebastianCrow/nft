@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { RefObject } from 'react';
+import type { Optional } from '../utils';
 
 interface Size {
   width: number;
@@ -12,8 +13,7 @@ interface UseResizeObserverParams {
 
 export const useResizeObserver = ({
   ref,
-}: UseResizeObserverParams): Size | undefined => {
-  // TODO: Optional?
+}: UseResizeObserverParams): Optional<Size> => {
   const [size, setSize] = useState<Size>();
 
   useEffect(() => {

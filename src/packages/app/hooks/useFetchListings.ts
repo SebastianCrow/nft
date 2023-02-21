@@ -58,16 +58,16 @@ export const useFetchListings = ({
   });
 
   useEffect(() => {
-    const pages = data?.pages ?? [{ items: [] }];
-    const lastPageItems = pages[pages.length - 1].items;
-    if (lastPageItems.length < ITEMS_PER_PAGE && hasNextPage) {
+    const pages = data?.pages ?? [];
+    const lastPageItems = pages[pages.length - 1]?.items;
+    if (lastPageItems && lastPageItems.length < ITEMS_PER_PAGE && hasNextPage) {
       fetchNextPage();
     }
   }, [data?.pages, fetchNextPage, hasNextPage]);
 
   return useMemo(
     () => ({
-      items: data?.pages.flatMap((page) => page.items) ?? [], // TODO: flat map, casting
+      items: data?.pages.flatMap((page) => page.items) ?? [],
       fetchingFinished: hasNextPage === false,
       fetchNext: fetchNextPage,
     }),
