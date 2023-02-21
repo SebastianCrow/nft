@@ -44,15 +44,13 @@ export const Input: FunctionComponent<InputProps> = ({
           'absolute top-1/2 -translate-y-1/2 right-0',
           'w-10 h-10',
           'mx-1',
-          'flex justify-center items-center'
+          'flex justify-center items-center',
+          !value ? 'pointer-events-none' : undefined
         )}
       >
         {!value && (
           <MagnifyingGlassIcon
-            className={classes(
-              'w-6',
-              'text-secondary dark:text-dark-secondary'
-            )}
+            className={classes('w-6', 'text-secondary dark:text-dark')}
           />
         )}
         {value && (
