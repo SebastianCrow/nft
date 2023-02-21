@@ -5,6 +5,9 @@ export interface UseDebounceParams<T> {
   delay: number;
 }
 
+/**
+ * Debounce a given {@param value} with the specified {@param delay}.
+ */
 export const useDebounce = <T>({ value, delay }: UseDebounceParams<T>): T => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 

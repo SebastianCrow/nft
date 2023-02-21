@@ -11,6 +11,10 @@ export interface UseResizeObserverParams {
   ref: RefObject<HTMLElement>;
 }
 
+/**
+ * Get a current size of the given {@param ref} element.
+ * Value is observed by {@link ResizeObserver}.
+ */
 export const useResizeObserver = ({
   ref,
 }: UseResizeObserverParams): Optional<Size> => {
