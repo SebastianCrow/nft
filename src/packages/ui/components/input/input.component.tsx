@@ -25,8 +25,9 @@ export const Input: FunctionComponent<InputProps> = ({
       onChange={onChange}
       placeholder={placeholder}
       className={classes(
-        'py-3 px-6 rounded-lg',
+        'py-3 px-6 w-full rounded-lg',
         'transition-colors',
+        'focus:outline focus:dark:outline-dark',
         'text dark:text-dark bg-highlight dark:bg-dark-highlight',
         'placeholder:text-secondary dark:placeholder:text-dark-secondary'
       )}

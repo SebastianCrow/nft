@@ -9,6 +9,7 @@ export const ThemeSwitcher: FunctionComponent = () => {
     <div
       onClick={switchTheme}
       className={classes(
+        'flex justify-center items-center w-12 h-12',
         'cursor-pointer',
         'transition-colors',
         'text dark:text-dark',

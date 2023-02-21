@@ -33,6 +33,12 @@ module.exports = {
           DEFAULT: 'rgb(49, 39, 61)',
         },
       },
+      outlineColor: {
+        DEFAULT: 'rgb(68, 64, 68)',
+        dark: {
+          DEFAULT: 'rgb(245, 243, 247)',
+        },
+      },
     },
   },
   plugins: [],
