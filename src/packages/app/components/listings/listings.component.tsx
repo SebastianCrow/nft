@@ -5,6 +5,7 @@ import { Header } from '../header/header.component';
 import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
 import { useListingsPage } from '../../hooks/useListingsPage';
 import { ListingsCard } from './listingsCard.component';
+import { classes } from '../../../../shared';
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,7 +27,7 @@ export const Listings: FunctionComponent = () => {
   );
 
   return (
-    <div className="h-full bg">
+    <div className={classes('h-full', 'transition-colors', 'bg dark:bg-dark')}>
       <Header
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}

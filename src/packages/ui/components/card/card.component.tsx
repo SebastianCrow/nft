@@ -13,17 +13,40 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
 }) => {
   const Loader = (className: string) => (
     <div
-      className={classes('py-3 rounded-lg bg-loader animate-pulse', className)}
+      className={classes(
+        'py-3 rounded-lg animate-pulse',
+        'transition-colors',
+        'bg-loader dark:bg-dark-loader',
+        className
+      )}
     />
   );
 
   return (
-    <div className="rounded-xl overflow-hidden border">
+    <div
+      className={classes(
+        'rounded-xl overflow-hidden',
+        'transition-colors',
+        'border dark:border-dark'
+      )}
+    >
       <div className="relative aspect-square">
         <div className="absolute inset-0 z-10">{children}</div>
-        <div className="absolute inset-0 z-0 animate-pulse bg-loader" />
+        <div
+          className={classes(
+            'absolute inset-0 z-0 animate-pulse',
+            'transition-colors',
+            'bg-loader dark:bg-dark-loader'
+          )}
+        />
       </div>
-      <div className="flex items-center justify-between p-4 space-x-4 font-semibold text-secondary">
+      <div
+        className={classes(
+          'flex items-center justify-between p-4 space-x-4 font-semibold',
+          'transition-colors',
+          'text dark:text-dark'
+        )}
+      >
         {titleLeft ?? Loader('px-12')}
         {titleRight ?? Loader('px-6')}
       </div>

@@ -1,4 +1,5 @@
 import { ChangeEvent, FunctionComponent, useCallback } from 'react';
+import { classes } from '../../../../shared';
 
 interface InputProps {
   value: string;
@@ -23,7 +24,12 @@ export const Input: FunctionComponent<InputProps> = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="py-3 px-6 rounded-lg bg-highlight placeholder:text-secondary"
+      className={classes(
+        'py-3 px-6 rounded-lg',
+        'transition-colors',
+        'text dark:text-dark bg-highlight dark:bg-dark-highlight',
+        'placeholder:text-secondary dark:placeholder:text-dark-secondary'
+      )}
     />
   );
 };
