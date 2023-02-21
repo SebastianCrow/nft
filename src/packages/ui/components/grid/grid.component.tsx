@@ -1,59 +1,14 @@
 import {
-  forwardRef,
   FunctionComponent,
   MutableRefObject,
-  useMemo,
-  CSSProperties,
-  PropsWithChildren,
   ComponentType,
   createElement,
 } from 'react';
 import { FixedSizeGrid } from 'react-window';
-import { GRID_ITEM_SPACING_PX, useGridLayout } from './useGridLayout';
+import { useGridLayout } from './useGridLayout';
 import { useGridSize } from './useGridSize';
-
-const HEADER_HEIGHT_PX = 64; // TODO: Dynamic
-
-const computeGridCellStyle = (style: any) => ({
-  // TODO: Casting
-  ...style,
-  left: style.left + GRID_ITEM_SPACING_PX,
-  top: style.top + GRID_ITEM_SPACING_PX + HEADER_HEIGHT_PX,
-  width: style.width - GRID_ITEM_SPACING_PX,
-  height: style.height - GRID_ITEM_SPACING_PX,
-});
-
-// TODO
-// eslint-disable-next-line react/display-name
-const innerElementType = forwardRef<HTMLDivElement, { style: any }>(
-  ({ style, ...rest }, ref) => (
-    <div
-      ref={ref}
-      style={{
-        ...style,
-        height: style.height + HEADER_HEIGHT_PX + GRID_ITEM_SPACING_PX,
-      }}
-      {...rest}
-    />
-  )
-);
-
-export interface GridCellProps {
-  rowIndex: number;
-  columnIndex: number;
-  itemIndex: number;
-}
-
-interface GridCellWrapperProps {
-  style: CSSProperties;
-}
-
-const GridCellWrapper: FunctionComponent<
-  PropsWithChildren<GridCellWrapperProps>
-> = ({ style, children }) => {
-  const computedStyle = useMemo(() => computeGridCellStyle(style), [style]);
-  return <div style={computedStyle}>{children}</div>;
-};
+import { gridInnerElementType } from './grid.layout';
+import { GridCellProps, GridCellWrapper } from './gridCellWrapper.component';
 
 interface GridProps {
   itemsCount: number;
@@ -83,7 +38,7 @@ export const Grid: FunctionComponent<GridProps> = ({
         rowHeight={rowHeight}
         height={height}
         outerRef={gridElementRef}
-        innerElementType={innerElementType}
+        innerElementType={gridInnerElementType}
       >
         {({ rowIndex, columnIndex, style }) => {
           const itemIndex = rowIndex * columnCount + columnIndex;
