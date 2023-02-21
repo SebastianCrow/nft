@@ -11,8 +11,7 @@ import { Header } from '../header/header.component';
 import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
 import { useListingsPage } from '../../hooks/useListingsPage';
 import { ListingsCard } from './listingsCard.component';
-import { classes } from '../../../../shared';
-import { useDebounce } from '../../../../shared/hooks/useDebounce';
+import { classes, useDebounce } from '../../../../shared';
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
