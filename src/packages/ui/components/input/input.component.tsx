@@ -33,14 +33,15 @@ export const Input: FunctionComponent<InputProps> = ({
         className={classes(
           'py-3 pl-6 pr-12 w-full rounded-lg',
           'transition-colors',
-          'focus:outline focus:dark:outline-dark',
           'text dark:text-dark bg-highlight dark:bg-dark-highlight',
-          'placeholder:text-secondary dark:placeholder:text-dark-secondary'
+          'placeholder:text-secondary dark:placeholder:text-dark-secondary',
+          'focus:outline focus:dark:outline-dark'
         )}
       />
       <div
         onClick={clearValue}
         className={classes(
+          'group',
           'absolute top-1/2 -translate-y-1/2 right-0',
           'w-10 h-10',
           'mx-1',
@@ -64,7 +65,7 @@ export const Input: FunctionComponent<InputProps> = ({
               'w-7',
               'transition-colors',
               'text dark:text-dark',
-              'hover:text-secondary dark:hover:text-dark-secondary'
+              'group-hover:text-secondary dark:group-hover:text-dark-secondary'
             )}
           />
         )}
