@@ -1,5 +1,5 @@
-import { usePrevious } from '../../../shared';
 import { useEffect } from 'react';
+import { usePrevious } from '../../../shared';
 
 interface UseFetchNextPageParams {
   page: number;

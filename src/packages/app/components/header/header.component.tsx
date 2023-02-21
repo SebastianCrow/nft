@@ -1,6 +1,7 @@
-import { FunctionComponent, RefObject, useCallback } from 'react';
-import { classes, useScrollTop } from '../../../../shared';
+import type { FunctionComponent, RefObject } from 'react';
+import { useCallback } from 'react';
 import { Input, ThemeSwitcher } from '../../../ui';
+import { classes, useScrollTop } from '../../../../shared';
 
 interface HeaderProps {
   searchQuery: string;

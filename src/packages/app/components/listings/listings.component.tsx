@@ -1,17 +1,12 @@
-import {
-  FunctionComponent,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import type { FunctionComponent } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Grid, MessagePanel } from '../../../ui';
 import { useFetchListings } from '../../hooks/useFetchListings';
 import { Header } from '../header/header.component';
 import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
 import { useListingsPage } from '../../hooks/useListingsPage';
-import { ListingsCard } from './listingsCard.component';
 import { classes, useDebounce } from '../../../../shared';
+import { ListingsCard } from './listingsCard.component';
 
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');

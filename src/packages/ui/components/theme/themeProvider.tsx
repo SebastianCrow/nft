@@ -1,15 +1,14 @@
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import {
   createContext,
-  FunctionComponent,
-  PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react';
-import { getStorageTheme, setStorageTheme, Theme } from './themeStorage';
 import { usePrevious } from '../../../../shared';
+import { Theme, getStorageTheme, setStorageTheme } from './themeStorage';
 
 interface ThemeState {
   theme: Theme;

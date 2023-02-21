@@ -1,8 +1,8 @@
-import { FunctionComponent } from 'react';
-import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
-import { useTheme } from './themeProvider';
-import { Theme } from './themeStorage';
+import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+import type { FunctionComponent } from 'react';
 import { classes } from '../../../../shared';
+import { Theme } from './themeStorage';
+import { useTheme } from './themeProvider';
 
 export const ThemeSwitcher: FunctionComponent = () => {
   const { theme, switchTheme } = useTheme();

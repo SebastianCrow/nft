@@ -1,6 +1,6 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
-import { useTheme } from './themeProvider';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import { classes } from '../../../../shared';
+import { useTheme } from './themeProvider';
 
 export const ThemeWrapper: FunctionComponent<PropsWithChildren> = ({
   children,

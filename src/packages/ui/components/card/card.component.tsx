@@ -1,4 +1,4 @@
-import { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
+import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
 import { classes } from '../../../../shared';
 
 interface CardProps {

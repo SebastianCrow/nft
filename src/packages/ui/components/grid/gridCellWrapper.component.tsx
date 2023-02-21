@@ -1,9 +1,9 @@
-import {
+import type {
   CSSProperties,
   FunctionComponent,
   PropsWithChildren,
-  useMemo,
 } from 'react';
+import { useMemo } from 'react';
 import { computeGridCellStyle } from './grid.layout';
 
 export interface GridCellProps {

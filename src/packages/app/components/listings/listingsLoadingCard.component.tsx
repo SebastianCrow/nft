@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
+import type { FunctionComponent } from 'react';
 import { Card } from '../../../ui';
 import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
-import { FunctionComponent, useEffect } from 'react';
 
 interface ListingsLoadingCardProps {
   itemIndex: number;

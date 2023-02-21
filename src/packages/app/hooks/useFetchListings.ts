@@ -1,14 +1,16 @@
 import { useEffect, useMemo } from 'react';
-import {
+import type {
   QueryFunction,
   UseInfiniteQueryResult,
-  useInfiniteQuery,
 } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import type {
+  ListingsItem,
+  ListingsPage,
+} from '../services/listingsNetwork.service';
 import {
   fetchListings,
   ITEMS_PER_PAGE,
-  ListingsItem,
-  ListingsPage,
 } from '../services/listingsNetwork.service';
 
 const LISTINGS_QUERY_KEY = 'listings';

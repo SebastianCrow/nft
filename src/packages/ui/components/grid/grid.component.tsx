@@ -1,14 +1,11 @@
-import {
-  FunctionComponent,
-  MutableRefObject,
-  ComponentType,
-  createElement,
-} from 'react';
+import type { FunctionComponent, MutableRefObject, ComponentType } from 'react';
+import { createElement } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { useGridLayout } from './useGridLayout';
 import { useGridSize } from './useGridSize';
 import { gridInnerElementType } from './grid.layout';
-import { GridCellProps, GridCellWrapper } from './gridCellWrapper.component';
+import type { GridCellProps } from './gridCellWrapper.component';
+import { GridCellWrapper } from './gridCellWrapper.component';
 
 interface GridProps {
   itemsCount: number;

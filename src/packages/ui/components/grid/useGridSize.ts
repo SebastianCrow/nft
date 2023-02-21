@@ -1,4 +1,5 @@
-import { MutableRefObject, useMemo, useRef } from 'react';
+import type { MutableRefObject } from 'react';
+import { useMemo, useRef } from 'react';
 import { useResizeObserver } from '../../../../shared';
 
 export const GRID_WIDTH_MULTIPLIER = 256;

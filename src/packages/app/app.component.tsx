@@ -1,18 +1,27 @@
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Listings } from './components/listings/listings.component';
+import { useMemo } from 'react';
 import { ThemeProvider, ThemeWrapper } from '../ui';
-
-const queryClient = new QueryClient();
+import { Providers } from '../../shared';
+import { Listings } from './components/listings/listings.component';
 
 export const App: FunctionComponent = () => {
+  const providers = useMemo(
+    () => [
+      <QueryClientProvider
+        key="query-client-provider"
+        client={new QueryClient()}
+      />,
+      <ThemeProvider key="theme-provider" />,
+    ],
+    []
+  );
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <ThemeWrapper>
-          <Listings />
-        </ThemeWrapper>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <Providers providers={providers}>
+      <ThemeWrapper>
+        <Listings />
+      </ThemeWrapper>
+    </Providers>
   );
 };

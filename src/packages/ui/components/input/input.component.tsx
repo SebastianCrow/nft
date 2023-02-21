@@ -1,4 +1,5 @@
-import { ChangeEvent, FunctionComponent, useCallback } from 'react';
+import type { ChangeEvent, FunctionComponent } from 'react';
+import { useCallback } from 'react';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { classes } from '../../../../shared';
 

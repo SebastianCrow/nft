@@ -1,11 +1,9 @@
-import {
-  ITEMS_PER_PAGE,
-  ListingsItem,
-} from '../../services/listingsNetwork.service';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import type { ListingsItem } from '../../services/listingsNetwork.service';
+import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
+import type { GridCellProps } from '../../../ui';
 import { ListingsLoadingCard } from './listingsLoadingCard.component';
 import { ListingsItemCard } from './listingsItemCard.component';
-import { GridCellProps } from '../../../ui';
 
 interface ListingsCardProps extends GridCellProps {
   items: ListingsItem[];

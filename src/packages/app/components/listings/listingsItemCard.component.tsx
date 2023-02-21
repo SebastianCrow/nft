@@ -1,7 +1,7 @@
-import { ListingsItem } from '../../services/listingsNetwork.service';
+import type { FunctionComponent } from 'react';
+import type { ListingsItem } from '../../services/listingsNetwork.service';
 import { Card } from '../../../ui';
 import { ReactComponent as LogoSolana } from '../../../../resources/logo-solana.svg';
-import { FunctionComponent } from 'react';
 
 interface ListingsItemCardProps {
   item: ListingsItem;

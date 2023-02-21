@@ -1,5 +1,5 @@
-import { GRID_ITEM_SPACING_PX } from './useGridLayout';
 import { forwardRef } from 'react';
+import { GRID_ITEM_SPACING_PX } from './useGridLayout';
 
 const HEADER_HEIGHT_PX = 64; // TODO: Dynamic
 
