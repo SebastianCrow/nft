@@ -1,5 +1,7 @@
 export type Optional<T> = T | undefined;
 
+export const noop = () => void undefined;
+
 /**
  * Ensure that {@param val} is defined. Throw otherwise.
  */

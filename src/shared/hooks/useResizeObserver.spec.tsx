@@ -8,14 +8,16 @@ const resizeObserver = mockResizeObserver();
 
 describe('useResizeObserver', () => {
   test('returns correct size on resize', () => {
-    const { container } = render(<div data-testid="test" />);
+    const { getByTestId } = render(<div data-testid="test" />);
+
+    const element = getByTestId('test');
 
     const { result } = renderHook(
       (params: UseResizeObserverParams) => useResizeObserver(params),
       {
         initialProps: {
           ref: {
-            current: container,
+            current: element,
           },
         },
       }
@@ -23,7 +25,7 @@ describe('useResizeObserver', () => {
 
     expect(result.current).toStrictEqual({ width: 0, height: 0 });
 
-    resizeObserver.mockElementSize(container, {
+    resizeObserver.mockElementSize(element, {
       contentBoxSize: { inlineSize: 10, blockSize: 20 },
     });
 
