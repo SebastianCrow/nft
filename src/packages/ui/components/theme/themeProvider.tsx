@@ -4,24 +4,20 @@ import {
   PropsWithChildren,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
-
-export enum Theme {
-  Dark = 'dark',
-  Light = 'light',
-}
+import { getStorageTheme, setStorageTheme, Theme } from './themeStorage';
+import { usePrevious } from '../../../../shared';
 
 interface ThemeState {
   theme: Theme;
   switchTheme: () => void;
 }
 
-const DEFAULT_THEME = Theme.Dark;
-
 const ThemeContext = createContext<ThemeState>({
-  theme: DEFAULT_THEME,
+  theme: getStorageTheme(),
   switchTheme: () => {
     throw new Error('Theme context not initialized');
   },
@@ -30,7 +26,15 @@ const ThemeContext = createContext<ThemeState>({
 export const ThemeProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState(DEFAULT_THEME);
+  const [theme, setTheme] = useState(getStorageTheme());
+
+  const prevTheme = usePrevious(theme);
+  useEffect(() => {
+    // Theme changed by the user
+    if (prevTheme && prevTheme !== theme) {
+      setStorageTheme(theme);
+    }
+  }, [prevTheme, theme]);
 
   const switchTheme = useCallback(() => {
     setTheme((prevTheme) =>
