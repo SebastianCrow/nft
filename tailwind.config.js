@@ -12,19 +12,22 @@ module.exports = {
       textColor: {
         DEFAULT: 'rgb(68, 64, 68)',
         secondary: 'rgb(92, 88, 92)',
+        action: 'rgb(245, 243, 247)',
         dark: {
           DEFAULT: 'rgb(245, 243, 247)',
-          secondary: 'rgb(123, 122, 123)',
+          secondary: 'rgb(143, 142, 143)',
         },
       },
       backgroundColor: {
         DEFAULT: 'rgb(255, 255, 255)',
         highlight: 'rgb(241 245 249)',
         loader: 'rgb(226 232 240)',
+        action: 'rgb(228, 37, 117)',
         dark: {
           DEFAULT: 'rgb(18, 12, 24)',
           highlight: 'rgb(36, 24, 47)',
           loader: 'rgb(36, 24, 47)',
+          action: 'rgb(228, 37, 117)',
         },
       },
       borderColor: {

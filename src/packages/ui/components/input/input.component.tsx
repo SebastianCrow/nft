@@ -45,19 +45,23 @@ export const Input: FunctionComponent<InputProps> = ({
           'w-10 h-10',
           'mx-1',
           'flex justify-center items-center',
+          'cursor-pointer',
           !value ? 'pointer-events-none' : undefined
         )}
       >
         {!value && (
           <MagnifyingGlassIcon
-            className={classes('w-6', 'text-secondary dark:text-dark')}
+            className={classes(
+              'w-6',
+              'transition-colors',
+              'text-secondary dark:text-dark'
+            )}
           />
         )}
         {value && (
           <XMarkIcon
             className={classes(
               'w-7',
-              'cursor-pointer',
               'transition-colors',
               'text dark:text-dark',
               'hover:text-secondary dark:hover:text-dark-secondary'
