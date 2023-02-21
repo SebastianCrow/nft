@@ -22,13 +22,28 @@ describe('numbers.util', () => {
       expect(truncatePositive(100.299, 2)).toStrictEqual(100.29);
     });
 
-    it('truncates zero correctly', () => {
-      expect(truncatePositive(0, 1).toString()).toStrictEqual('0');
+    it('truncates positive numbers to zero places correctly', () => {
+      expect(truncatePositive(100, 0)).toStrictEqual(100);
+      expect(truncatePositive(100.2, 0)).toStrictEqual(100);
+      expect(truncatePositive(100.21, 0)).toStrictEqual(100);
+      expect(truncatePositive(100.29, 0)).toStrictEqual(100);
+    });
+
+    it('truncates zero number correctly', () => {
+      expect(truncatePositive(0.0, 1)).toStrictEqual(0);
+      expect(truncatePositive(0.0, 2)).toStrictEqual(0);
+      expect(truncatePositive(0.0, 3)).toStrictEqual(0);
     });
 
     it('throws on negative number', () => {
       expect(() => truncatePositive(-1, 1)).toThrowError(
         'Function `truncatePositive` works only for positive numbers'
+      );
+    });
+
+    it('throws on negative places', () => {
+      expect(() => truncatePositive(1, -1)).toThrowError(
+        '`places` cannot be a negative value'
       );
     });
   });

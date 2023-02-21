@@ -8,6 +8,10 @@ export const truncatePositive = (num: number, places: number): number => {
       'Function `truncatePositive` works only for positive numbers'
     );
   }
+  if (places < 0) {
+    throw new Error('`places` cannot be a negative value');
+  }
+
   const multiplier = Math.pow(10, places);
   return Math.floor(num * multiplier) / multiplier;
 };
