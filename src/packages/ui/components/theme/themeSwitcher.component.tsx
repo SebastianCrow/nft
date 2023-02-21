@@ -16,7 +16,11 @@ export const ThemeSwitcher: FunctionComponent = () => {
         'hover:text-secondary dark:hover:text-dark-secondary'
       )}
     >
-      {theme === Theme.Dark ? <MoonIcon width={24} /> : <SunIcon width={28} />}
+      {theme === Theme.Dark ? (
+        <MoonIcon className="w-6" />
+      ) : (
+        <SunIcon className="w-7" />
+      )}
     </div>
   );
 };
