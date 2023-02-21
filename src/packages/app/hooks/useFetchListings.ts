@@ -15,6 +15,8 @@ import {
 
 const LISTINGS_QUERY_KEY = 'listings';
 
+const LISTINGS_RETRY_DELAY_MS = 500;
+
 interface UseFetchListingsParams {
   searchQuery?: string;
 }
@@ -54,6 +56,7 @@ export const useFetchListings = ({
     queryFn: fetchFilteredListings,
     getNextPageParam: (lastPage) => lastPage.nextPage,
     retry: true,
+    retryDelay: LISTINGS_RETRY_DELAY_MS,
     refetchOnWindowFocus: false,
   });
 

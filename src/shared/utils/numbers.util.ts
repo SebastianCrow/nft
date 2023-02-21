@@ -12,6 +12,6 @@ export const truncatePositive = (num: number, places: number): number => {
     throw new Error('`places` cannot be a negative value');
   }
 
-  const multiplier = Math.pow(10, places);
+  const multiplier = 10 ** places;
   return Math.floor(num * multiplier) / multiplier;
 };
