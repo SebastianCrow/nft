@@ -56,7 +56,7 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
       </div>
       <div
         className={classes(
-          'flex items-center justify-between p-4 space-x-4 font-semibold',
+          'flex items-center justify-between p-4 space-x-2 font-semibold',
           'transition-colors',
           'text dark:text-dark'
         )}
