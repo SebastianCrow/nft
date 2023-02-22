@@ -64,6 +64,10 @@ export const Grid: FunctionComponent<GridProps> = ({
             rowIndex,
             columnIndex,
             itemIndex,
+            size: {
+              width: columnWidth,
+              height: rowHeight,
+            },
           });
           return (
             <GridCellWrapper style={style as CSSPropertiesNumericRect}>

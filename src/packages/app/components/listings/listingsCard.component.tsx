@@ -18,6 +18,7 @@ export const ListingsCard: FunctionComponent<ListingsCardProps> = ({
   fetchingFinished,
   page,
   goToPage,
+  size,
 }) => {
   if (itemIndex >= items.length + ITEMS_PER_PAGE) {
     return null;
@@ -35,5 +36,5 @@ export const ListingsCard: FunctionComponent<ListingsCardProps> = ({
     ) : null;
   }
 
-  return <ListingsItemCard item={item} />;
+  return <ListingsItemCard item={item} size={size} />;
 };

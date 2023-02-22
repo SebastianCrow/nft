@@ -1,10 +1,12 @@
 import type { FunctionComponent } from 'react';
 import type { ListingsItem } from '../../services/listingsNetwork.service';
+import type { GridCellProps } from '../../../ui';
 import { Card } from '../../../ui';
 import { ReactComponent as LogoSolana } from '../../../../resources/logo-solana.svg';
 
 interface ListingsItemCardProps {
   item: ListingsItem;
+  size: GridCellProps['size'];
 }
 
 export const ListingsItemCard: FunctionComponent<ListingsItemCardProps> = ({
@@ -13,6 +15,7 @@ export const ListingsItemCard: FunctionComponent<ListingsItemCardProps> = ({
     price,
     extra: { img },
   },
+  size: { width },
 }) => {
   return (
     <Card
@@ -25,7 +28,7 @@ export const ListingsItemCard: FunctionComponent<ListingsItemCardProps> = ({
         </div>
       }
     >
-      <img src={img} alt={`Image for ${name}`} />
+      <img src={img} alt={`Image for ${name}`} width={width} height={width} />
     </Card>
   );
 };

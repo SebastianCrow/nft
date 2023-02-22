@@ -7,6 +7,10 @@ export interface GridCellProps {
   rowIndex: number;
   columnIndex: number;
   itemIndex: number;
+  size: {
+    width: number;
+    height: number;
+  };
 }
 
 interface GridCellWrapperProps {

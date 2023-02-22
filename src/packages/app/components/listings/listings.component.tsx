@@ -1,11 +1,11 @@
 import type { FunctionComponent, ReactElement } from 'react';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { Grid, MessagePanel } from '../../../ui';
-import { useFetchListings } from '../../hooks/useFetchListings';
+import { classes, useDebounce } from '../../../../shared';
 import { Header } from '../header/header.component';
+import { useFetchListings } from '../../hooks/useFetchListings';
 import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
 import { useListingsPage } from '../../hooks/useListingsPage';
-import { classes, useDebounce } from '../../../../shared';
+import { Grid, MessagePanel } from '../../../ui';
 import { ListingsCard } from './listingsCard.component';
 
 const CARD_ADDITIONAL_VERTICAL_PX = 56;

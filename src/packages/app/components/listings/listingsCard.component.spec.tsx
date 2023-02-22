@@ -13,6 +13,11 @@ describe('ListingsCard', () => {
 
   const COLUMN_COUNT = 2;
 
+  const CARD_SIZE = {
+    width: 100,
+    height: 156,
+  };
+
   const getRowIndex = (itemIndex: number): number => {
     return Math.floor(itemIndex / COLUMN_COUNT);
   };
@@ -32,6 +37,7 @@ describe('ListingsCard', () => {
         rowIndex={getRowIndex(itemsWithLoadersCount)}
         columnIndex={getColumnIndex(itemsWithLoadersCount)}
         itemIndex={itemsWithLoadersCount}
+        size={CARD_SIZE}
       />
     );
     expect(container).toBeEmptyDOMElement();
@@ -47,6 +53,7 @@ describe('ListingsCard', () => {
         rowIndex={getRowIndex(3)}
         columnIndex={getColumnIndex(3)}
         itemIndex={3}
+        size={CARD_SIZE}
       />
     );
 
@@ -63,6 +70,7 @@ describe('ListingsCard', () => {
         rowIndex={getRowIndex(3)}
         columnIndex={getColumnIndex(3)}
         itemIndex={3}
+        size={CARD_SIZE}
       />
     );
 
@@ -81,6 +89,7 @@ describe('ListingsCard', () => {
         rowIndex={getRowIndex(2)}
         columnIndex={getColumnIndex(2)}
         itemIndex={2}
+        size={CARD_SIZE}
       />
     );
 
