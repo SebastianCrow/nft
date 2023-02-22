@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { usePrevious } from '../../../shared';
 import { useFetchItemsOnPageChange } from './useFetchItemsOnPageChange';
 import { useResetPageOnSearchQueryChange } from './useResetPageOnSearchQueryChange';
 
@@ -27,7 +28,9 @@ export const useListingsPage = ({
     onReset: resetPage,
   });
 
+  const prevPage = usePrevious(page);
   useFetchItemsOnPageChange({
+    prevPage,
     page,
     fetchNext,
   });
