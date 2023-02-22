@@ -2,8 +2,6 @@
 
 App displaying NFTs on `Solana` built in `React` and based on [Create React App](https://github.com/facebook/create-react-app).
 
----
-
 ## Scripts to go
 
 ### `yarn start`
@@ -32,8 +30,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Perform `ESLint` check on the app's codebase.
 
----
-
 ## Main points :tada: 
 
 - App loads first 20 NFT listings from the API and displays it as cards in the responsive grid
@@ -41,6 +37,11 @@ Perform `ESLint` check on the app's codebase.
 - The grid is virtualized so it the total items count doesn't matter because it doesn't hurt performance
 - User can search NFT names. The search is performed on the client side (a direct lowercase string match)
 - Failed requests to the API endpoint are retried infinitely every `500ms`
+
+## API endpoint notes :construction:
+
+- It doesn't return NFT names, so they are generated on the client side
+- It gives paths to the very big images (`2000px` x `2000px`) affecting client's performance. Preferably, something around `400px` x `400px` would be nice
 
 ## Additional points :white_check_mark:
 
@@ -57,6 +58,7 @@ Perform `ESLint` check on the app's codebase.
   - Testing components rendering with `@testing-library/react`
   - Testing React hooks logic with `@testing-library/react-hooks`
   - TODO: Network layer testing with ITs/E2Es (`Cypress`)
+  - TODO: Migrate `React` hooks testing library to `React 18` ([note](https://github.com/testing-library/react-hooks-testing-library#a-note-about-react-18-support))
 - Guarding the code quality and style with `ESLint`/`Prettier`
   - Using recommended `ESLint` rules
   - Included `TypeScript` rules
@@ -98,8 +100,6 @@ Failed requests to the API endpoint are retried infinitely every `500ms`
 Light and dark themes (affecting scrollbar). User selection is preserved in the local storage
 
 ![Theme](https://github.com/SebastianCrow/nft/blob/master/readme/theme.gif?raw=true)
-
----
 
 ## Notable libraries used :handshake:
 
