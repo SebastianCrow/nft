@@ -8,7 +8,7 @@ interface UseGridLayoutParams {
   gridWidth: number;
 }
 
-interface UseGridLayoutReturn {
+export interface UseGridLayoutReturn {
   rowCount: number;
   columnCount: number;
   rowHeight: number;

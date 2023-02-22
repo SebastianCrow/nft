@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { noop } from '../../../../shared';
 import { Button } from './button.component';
 
@@ -12,9 +12,7 @@ describe('Button', () => {
     const onClick = jest.fn();
     const { getByText } = render(<Button onClick={onClick}>Test</Button>);
 
-    act(() => {
-      fireEvent.click(getByText('Test'));
-    });
+    fireEvent.click(getByText('Test'));
 
     expect(onClick).toHaveBeenCalled();
   });

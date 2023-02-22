@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { RefObject } from 'react';
 import type { Optional } from '../utils';
 
@@ -20,8 +20,20 @@ export const useResizeObserver = ({
 }: UseResizeObserverParams): Optional<Size> => {
   const [size, setSize] = useState<Size>();
 
+  const element = ref.current;
+
+  const observer = useMemo(
+    () =>
+      new ResizeObserver(([entry]) => {
+        setSize({
+          width: entry.contentRect.width,
+          height: entry.contentRect.height,
+        });
+      }),
+    []
+  );
+
   useEffect(() => {
-    const element = ref.current;
     if (!element) {
       return;
     }
@@ -32,18 +44,12 @@ export const useResizeObserver = ({
       height,
     });
 
-    const observer = new ResizeObserver(([entry]) => {
-      setSize({
-        width: entry.contentRect.width,
-        height: entry.contentRect.height,
-      });
-    });
     observer.observe(element);
 
     return () => {
       observer.disconnect();
     };
-  }, [ref]);
+  }, [element, observer]);
 
   return size;
 };

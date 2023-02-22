@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { fireEvent, render } from '@testing-library/react';
 import { useScrollTop } from './useScrollTop';
 
@@ -18,10 +18,8 @@ describe('useScrollTop', () => {
 
     expect(result.current).toStrictEqual(0);
 
-    act(() => {
-      element.scrollTop = 10;
-      fireEvent.scroll(element);
-    });
+    element.scrollTop = 10;
+    fireEvent.scroll(element);
 
     expect(result.current).toStrictEqual(10);
   });
