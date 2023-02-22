@@ -9,6 +9,14 @@ module.exports = {
       fontFamily: {
         sans: ['Roboto Flex', ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        scrollbarThumb: 'rgb(193, 193, 193)',
+        scrollbarTrack: 'rgb(250, 250, 250)',
+        dark: {
+          scrollbarThumb: 'rgb(59, 49, 71)',
+          scrollbarTrack: 'rgb(0, 0, 0)',
+        },
+      },
       textColor: {
         DEFAULT: 'rgb(68, 64, 68)',
         secondary: 'rgb(92, 88, 92)',
@@ -44,5 +52,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')],
+  variants: {
+    scrollbar: ['rounded'],
+  },
 };

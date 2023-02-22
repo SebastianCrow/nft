@@ -6,6 +6,7 @@ import type {
 } from 'react';
 import { createElement } from 'react';
 import { FixedSizeGrid } from 'react-window';
+import { classes } from '../../../../shared';
 import { useGridLayout } from './useGridLayout';
 import { useGridSize } from './useGridSize';
 import { gridInnerElementType } from './grid.layout';
@@ -41,6 +42,11 @@ export const Grid: FunctionComponent<GridProps> = ({
         height={height}
         outerRef={gridElementRef}
         innerElementType={gridInnerElementType}
+        className={classes(
+          'scrollbar-thin scrollbar-thumb-rounded-full',
+          'scrollbar-thumb-scrollbarThumb dark:scrollbar-thumb-dark-scrollbarThumb',
+          'scrollbar-track-scrollbarTrack dark:scrollbar-track-dark-scrollbarTrack'
+        )}
       >
         {({ rowIndex, columnIndex, style }): ReactElement => {
           const itemIndex = rowIndex * columnCount + columnIndex;

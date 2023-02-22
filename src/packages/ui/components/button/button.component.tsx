@@ -17,7 +17,7 @@ export const Button: FunctionComponent<PropsWithChildren<ButtonProps>> = ({
         'transition',
         'text-action',
         'bg-action dark:bg-dark-action',
-        'hover:opacity-90'
+        'hover:bg-action/90 dark:hover:bg-dark-action/90'
       )}
     >
       {children}
