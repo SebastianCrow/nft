@@ -10,11 +10,9 @@ describe('ListingsCard', () => {
     { name: 'Item2', price: 2, extra: { img: 'https://img.item2' } },
     { name: 'Item3', price: 3, extra: { img: 'https://img.item3' } },
   ];
-  const ITEMS_WITH_LOADERS_COUNT = ITEMS.length + ITEMS_PER_PAGE;
 
   const COLUMN_COUNT = 2;
 
-  // 23
   const getRowIndex = (itemIndex: number): number => {
     return Math.floor(itemIndex / COLUMN_COUNT);
   };
@@ -24,18 +22,18 @@ describe('ListingsCard', () => {
   };
 
   it('does not render for out of bounds item', () => {
+    const itemsWithLoadersCount = ITEMS.length + ITEMS_PER_PAGE;
     const { container } = render(
       <ListingsCard
         items={ITEMS}
         fetchingFinished={false}
         page={1}
         goToPage={noop}
-        rowIndex={getRowIndex(ITEMS_WITH_LOADERS_COUNT)}
-        columnIndex={getColumnIndex(ITEMS_WITH_LOADERS_COUNT)}
-        itemIndex={ITEMS_WITH_LOADERS_COUNT}
+        rowIndex={getRowIndex(itemsWithLoadersCount)}
+        columnIndex={getColumnIndex(itemsWithLoadersCount)}
+        itemIndex={itemsWithLoadersCount}
       />
     );
-
     expect(container).toBeEmptyDOMElement();
   });
 
