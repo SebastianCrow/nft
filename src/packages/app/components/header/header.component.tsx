@@ -35,6 +35,7 @@ export const Header: FunctionComponent<HeaderProps> = ({
         floatingHeader ? 'border-b dark:border-b-dark' : 'border-b-transparent',
         'bg dark:bg-dark'
       )}
+      data-testid="header-main"
     >
       <div onClick={stopEventPropagation} className="w-1/2">
         <Input

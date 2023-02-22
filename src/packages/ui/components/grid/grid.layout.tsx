@@ -5,7 +5,7 @@ import { GRID_ITEM_SPACING_PX } from './useGridLayout';
 // TODO: Header is static right now. Compute height with `useResizeObserver` if needed (dynamic header height)
 const HEADER_HEIGHT_PX = 64;
 
-interface CSSPropertiesNumericRect
+export interface CSSPropertiesNumericRect
   extends Pick<CSSProperties, 'top' | 'left' | 'width' | 'height'> {
   top: number;
   left: number;

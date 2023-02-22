@@ -8,13 +8,13 @@ describe('useScrollTop', () => {
 
     const element = getByTestId('test');
 
-    const { result } = renderHook(() =>
-      useScrollTop({
+    const { result } = renderHook(useScrollTop, {
+      initialProps: {
         ref: {
           current: element,
         },
-      })
-    );
+      },
+    });
 
     expect(result.current).toStrictEqual(0);
 

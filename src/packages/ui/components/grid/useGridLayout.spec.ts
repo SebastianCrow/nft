@@ -62,9 +62,9 @@ describe('useGridLayout', () => {
       additionalVerticalPx,
       expectedLayout: UseGridLayoutReturn
     ) => {
-      const { result } = renderHook(() =>
-        useGridLayout({ itemsCount, gridWidth, additionalVerticalPx })
-      );
+      const { result } = renderHook(useGridLayout, {
+        initialProps: { itemsCount, gridWidth, additionalVerticalPx },
+      });
       expect(result.current).toStrictEqual(expectedLayout);
     }
   );

@@ -1,5 +1,4 @@
 import { renderHook } from '@testing-library/react-hooks';
-import type { UseDebounceParams } from './useDebounce';
 import { useDebounce } from './useDebounce';
 
 describe('useDebounce', () => {
@@ -13,15 +12,12 @@ describe('useDebounce', () => {
   });
 
   it('debounces changed value', () => {
-    const { result, rerender } = renderHook(
-      (params: UseDebounceParams<number>) => useDebounce(params),
-      {
-        initialProps: {
-          value: 1,
-          delay: 100,
-        },
-      }
-    );
+    const { result, rerender } = renderHook(useDebounce, {
+      initialProps: {
+        value: 1,
+        delay: 100,
+      },
+    });
     expect(result.current).toStrictEqual(1); // 0ms
 
     // Value changed
@@ -38,15 +34,12 @@ describe('useDebounce', () => {
   });
 
   it('debounces value when delay is changed', () => {
-    const { result, rerender } = renderHook(
-      (params: UseDebounceParams<number>) => useDebounce(params),
-      {
-        initialProps: {
-          value: 1,
-          delay: 100,
-        },
-      }
-    );
+    const { result, rerender } = renderHook(useDebounce, {
+      initialProps: {
+        value: 1,
+        delay: 100,
+      },
+    });
     // Initial value
     expect(result.current).toStrictEqual(1); // 0ms
 

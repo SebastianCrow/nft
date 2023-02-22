@@ -1,9 +1,6 @@
-import type {
-  CSSProperties,
-  FunctionComponent,
-  PropsWithChildren,
-} from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import { useMemo } from 'react';
+import type { CSSPropertiesNumericRect } from './grid.layout';
 import { computeGridCellStyle } from './grid.layout';
 
 export interface GridCellProps {
@@ -13,7 +10,7 @@ export interface GridCellProps {
 }
 
 interface GridCellWrapperProps {
-  style: CSSProperties;
+  style: CSSPropertiesNumericRect;
 }
 
 export const GridCellWrapper: FunctionComponent<

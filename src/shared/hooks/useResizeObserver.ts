@@ -7,7 +7,7 @@ interface Size {
   height: number;
 }
 
-export interface UseResizeObserverParams {
+interface UseResizeObserverParams {
   ref: RefObject<HTMLElement>;
 }
 

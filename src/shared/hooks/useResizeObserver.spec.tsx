@@ -1,7 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { mockResizeObserver } from 'jsdom-testing-mocks';
 import { render } from '@testing-library/react';
-import type { UseResizeObserverParams } from './useResizeObserver';
 import { useResizeObserver } from './useResizeObserver';
 
 const resizeObserver = mockResizeObserver();
@@ -12,16 +11,13 @@ describe('useResizeObserver', () => {
 
     const element = getByTestId('test');
 
-    const { result } = renderHook(
-      (params: UseResizeObserverParams) => useResizeObserver(params),
-      {
-        initialProps: {
-          ref: {
-            current: element,
-          },
+    const { result } = renderHook(useResizeObserver, {
+      initialProps: {
+        ref: {
+          current: element,
         },
-      }
-    );
+      },
+    });
 
     expect(result.current).toStrictEqual({ width: 0, height: 0 });
 

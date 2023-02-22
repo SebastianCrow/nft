@@ -11,6 +11,7 @@ import { useGridLayout } from './useGridLayout';
 import { useGridSize } from './useGridSize';
 import type { GridCellProps } from './gridCellWrapper.component';
 import { GridCellWrapper } from './gridCellWrapper.component';
+import type { CSSPropertiesNumericRect } from './grid.layout';
 import { LayoutGridInnerElementType } from './grid.layout';
 
 interface GridProps {
@@ -58,7 +59,11 @@ export const Grid: FunctionComponent<GridProps> = ({
             columnIndex,
             itemIndex,
           });
-          return <GridCellWrapper style={style}>{cell}</GridCellWrapper>;
+          return (
+            <GridCellWrapper style={style as CSSPropertiesNumericRect}>
+              {cell}
+            </GridCellWrapper>
+          );
         }}
       </FixedSizeGrid>
     </div>

@@ -11,7 +11,8 @@ export const useFetchItemsOnPageChange = ({
 }: UseFetchNextPageParams): void => {
   const prevPage = usePrevious(page);
   useEffect(() => {
-    if (!prevPage || page > prevPage) {
+    console.log('sleposeb', prevPage, page);
+    if (prevPage && page > prevPage) {
       fetchNext();
     }
   }, [fetchNext, page, prevPage]);

@@ -7,7 +7,7 @@ const resizeObserver = mockResizeObserver();
 
 describe('useGridSize', () => {
   it('gets size correctly', () => {
-    const { result, rerender } = renderHook(() => useGridSize());
+    const { result, rerender } = renderHook(useGridSize);
 
     const { getByTestId } = render(
       <div data-testid="test" ref={result.current.gridContainerRef}></div>
@@ -30,7 +30,7 @@ describe('useGridSize', () => {
   });
 
   it('clips to max width', () => {
-    const { result, rerender } = renderHook(() => useGridSize());
+    const { result, rerender } = renderHook(useGridSize);
 
     const { getByTestId } = render(
       <div data-testid="test" ref={result.current.gridContainerRef}></div>

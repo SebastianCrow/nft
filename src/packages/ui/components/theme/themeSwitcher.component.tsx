@@ -16,6 +16,7 @@ export const ThemeSwitcher: FunctionComponent = () => {
         'text dark:text-dark',
         'hover:text-secondary dark:hover:text-dark-secondary'
       )}
+      data-testid="themeSwitcher-main"
     >
       {theme === Theme.Dark ? (
         <MoonIcon className="w-6" data-testid="themeSwitcher-icon-dark" />
