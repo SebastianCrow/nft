@@ -24,10 +24,10 @@ describe('Input', () => {
     );
     expect(onValueChange).not.toHaveBeenCalled();
 
-    fireEvent.change(getByTestId('input'), { target: { value: 'Test2' } });
+    fireEvent.change(getByTestId('input-main'), { target: { value: 'Test2' } });
     expect(onValueChange).toHaveBeenCalledTimes(1);
 
-    fireEvent.change(getByTestId('input'), { target: { value: 'Test3' } });
+    fireEvent.change(getByTestId('input-main'), { target: { value: 'Test3' } });
     expect(onValueChange).toHaveBeenCalledTimes(2);
   });
 

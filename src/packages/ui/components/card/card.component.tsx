@@ -50,7 +50,7 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
               'transition-colors',
               'bg-loader dark:bg-dark-loader'
             )}
-            data-testid="loader-main"
+            data-testid="card-loader-main"
           />
         )}
       </div>
@@ -62,10 +62,10 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
         )}
       >
         {titleLeft ?? (
-          <CardLoader className="px-12" testId="loader-title-left" />
+          <CardLoader className="px-12" testId="card-loader-title-left" />
         )}
         {titleRight ?? (
-          <CardLoader className="px-6" testId="loader-title-right" />
+          <CardLoader className="px-6" testId="card-loader-title-right" />
         )}
       </div>
     </div>

@@ -17,9 +17,9 @@ describe('Card', () => {
   it('renders loaders', () => {
     const { queryByTestId, rerender } = render(<Card />);
 
-    expect(queryByTestId('loader-main')).toBeInTheDocument();
-    expect(queryByTestId('loader-title-left')).toBeInTheDocument();
-    expect(queryByTestId('loader-title-right')).toBeInTheDocument();
+    expect(queryByTestId('card-loader-main')).toBeInTheDocument();
+    expect(queryByTestId('card-loader-title-left')).toBeInTheDocument();
+    expect(queryByTestId('card-loader-title-right')).toBeInTheDocument();
 
     rerender(
       <Card titleLeft={<div>TitleLeft</div>} titleRight={<div>TitleRight</div>}>
@@ -27,9 +27,9 @@ describe('Card', () => {
       </Card>
     );
 
-    expect(queryByTestId('loader-main')).toBeInTheDocument();
-    expect(queryByTestId('loader-title-left')).not.toBeInTheDocument();
-    expect(queryByTestId('loader-title-right')).not.toBeInTheDocument();
+    expect(queryByTestId('card-loader-main')).toBeInTheDocument();
+    expect(queryByTestId('card-loader-title-left')).not.toBeInTheDocument();
+    expect(queryByTestId('card-loader-title-right')).not.toBeInTheDocument();
 
     rerender(
       <Card
@@ -41,8 +41,8 @@ describe('Card', () => {
       </Card>
     );
 
-    expect(queryByTestId('loader-main')).not.toBeInTheDocument();
-    expect(queryByTestId('loader-title-left')).not.toBeInTheDocument();
-    expect(queryByTestId('loader-title-right')).not.toBeInTheDocument();
+    expect(queryByTestId('card-loader-main')).not.toBeInTheDocument();
+    expect(queryByTestId('card-loader-title-left')).not.toBeInTheDocument();
+    expect(queryByTestId('card-loader-title-right')).not.toBeInTheDocument();
   });
 });

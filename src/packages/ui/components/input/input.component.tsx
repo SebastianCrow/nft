@@ -38,7 +38,7 @@ export const Input: FunctionComponent<InputProps> = ({
           'placeholder:text-secondary dark:placeholder:text-dark-secondary',
           'focus:outline focus:dark:outline-dark'
         )}
-        data-testid="input"
+        data-testid="input-main"
       />
       <div
         onClick={clearValue}
