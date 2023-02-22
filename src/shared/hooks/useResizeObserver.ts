@@ -38,12 +38,14 @@ export const useResizeObserver = ({
       return;
     }
 
+    // Compute size for the new element
     const { width, height } = element.getBoundingClientRect();
     setSize({
       width,
       height,
     });
 
+    // Start observing consecutive size changes
     observer.observe(element);
 
     return () => {

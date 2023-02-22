@@ -20,8 +20,7 @@ export const ListingsItemCard: FunctionComponent<ListingsItemCardProps> = ({
       titleLeft={<div className="truncate">{name}</div>}
       titleRight={
         <div className="flex items-center space-x-1.5">
-          {/* TODO: SVG size? */}
-          <LogoSolana width={14.83} height={12} />
+          <LogoSolana width={13} />
           <div>{price}</div>
         </div>
       }

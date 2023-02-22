@@ -12,7 +12,7 @@ export interface ListingsPage {
 }
 
 export interface ListingsItem {
-  name: string; // TODO: Missing real names
+  name: string;
   price: number;
   extra: {
     img: string;
@@ -37,7 +37,8 @@ const mapListingsItem = (
   index: number,
   offset: number
 ): ListingsItem => ({
-  name: `Okay Bear #${offset + index + 1}`, // TODO: Missing real names
+  // TODO: Names are missing in the API response. Compute them on the client side.
+  name: `Okay Bear #${offset + index + 1}`,
   price: truncatePositive(price, 4),
   extra,
 });

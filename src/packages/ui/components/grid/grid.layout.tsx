@@ -2,7 +2,8 @@ import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { GRID_ITEM_SPACING_PX } from './useGridLayout';
 
-const HEADER_HEIGHT_PX = 64; // TODO: Dynamic
+// TODO: Header is static right now. Compute it with `useResizeObserver` if needed (dynamic header height).
+const HEADER_HEIGHT_PX = 64;
 
 export const computeGridCellStyle = (style: any): CSSProperties => ({
   // TODO: Casting
