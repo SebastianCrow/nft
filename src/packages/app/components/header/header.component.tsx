@@ -1,4 +1,4 @@
-import type { FunctionComponent, RefObject } from 'react';
+import type { FunctionComponent, RefObject, SyntheticEvent } from 'react';
 import { useCallback } from 'react';
 import { Input, ThemeSwitcher } from '../../../ui';
 import { classes, useScrollTop } from '../../../../shared';
@@ -21,7 +21,7 @@ export const Header: FunctionComponent<HeaderProps> = ({
     scrollElementRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [scrollElementRef]);
 
-  const stopEventPropagation = useCallback((event: any) => {
+  const stopEventPropagation = useCallback((event: SyntheticEvent) => {
     event.stopPropagation();
   }, []);
 

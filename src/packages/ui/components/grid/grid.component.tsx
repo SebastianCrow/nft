@@ -9,9 +9,9 @@ import { FixedSizeGrid } from 'react-window';
 import { classes } from '../../../../shared';
 import { useGridLayout } from './useGridLayout';
 import { useGridSize } from './useGridSize';
-import { gridInnerElementType } from './grid.layout';
 import type { GridCellProps } from './gridCellWrapper.component';
 import { GridCellWrapper } from './gridCellWrapper.component';
+import { LayoutGridInnerElementType } from './grid.layout';
 
 interface GridProps {
   itemsCount: number;
@@ -44,7 +44,7 @@ export const Grid: FunctionComponent<GridProps> = ({
         rowHeight={rowHeight}
         height={height}
         outerRef={gridElementRef}
-        innerElementType={gridInnerElementType}
+        innerElementType={LayoutGridInnerElementType}
         className={classes(
           'scrollbar-thin scrollbar-thumb-rounded-full',
           'scrollbar-thumb-scrollbarThumb dark:scrollbar-thumb-dark-scrollbarThumb',
