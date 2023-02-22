@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useFetchItemsOnPageChange } from './useFetchItemsOnPageChange';
+import { useResetPageOnSearchQueryChange } from './useResetPageOnSearchQueryChange';
 
 interface UseListingsPageParams {
   searchQuery: string;
@@ -17,9 +18,14 @@ export const useListingsPage = ({
 }: UseListingsPageParams): UseListingsPageReturn => {
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
+  const resetPage = useCallback(() => {
     setPage(1);
-  }, [searchQuery]);
+  }, []);
+
+  useResetPageOnSearchQueryChange({
+    searchQuery,
+    onReset: resetPage,
+  });
 
   useFetchItemsOnPageChange({
     page,

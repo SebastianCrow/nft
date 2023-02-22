@@ -44,4 +44,13 @@ describe('useFetchItemsOnPageChange', () => {
 
     expect(fetchNext).not.toHaveBeenCalled();
   });
+
+  it('throws on page smaller than 1', () => {
+    const fetchNext = jest.fn();
+    const { result } = renderHook(useFetchItemsOnPageChange, {
+      initialProps: { page: 0, fetchNext },
+    });
+
+    expect(result.error?.message).toStrictEqual('Page 0 is lower than 1');
+  });
 });
