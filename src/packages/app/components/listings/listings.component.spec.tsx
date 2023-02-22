@@ -1,10 +1,7 @@
 import { render } from '@testing-library/react';
-import { mockResizeObserver } from 'jsdom-testing-mocks';
 import * as UseFetchListings from '../../hooks/useFetchListings';
 import type { ListingsItem } from '../../services/listingsNetwork.service';
 import { Listings } from './listings.component';
-
-mockResizeObserver();
 
 describe('Listings', () => {
   const ITEMS: ListingsItem[] = [

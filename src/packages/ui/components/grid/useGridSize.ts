@@ -1,8 +1,14 @@
 import type { MutableRefObject } from 'react';
-import { useMemo, useRef } from 'react';
-import { useResizeObserver } from '../../../../shared';
+import { useCallback, useMemo, useRef, useState } from 'react';
+import type { UseResizeObserverCallback } from '@react-hook/resize-observer';
+import useResizeObserver from '@react-hook/resize-observer';
 
 export const GRID_WIDTH_MULTIPLIER = 256;
+
+interface Size {
+  width: number;
+  height: number;
+}
 
 interface UseGridSizeReturn {
   width: number;
@@ -13,15 +19,25 @@ interface UseGridSizeReturn {
 export const useGridSize = (): UseGridSizeReturn => {
   const gridContainerRef = useRef<HTMLDivElement>(null);
 
-  const gridSize = useResizeObserver({ ref: gridContainerRef });
-  const { width, height } = gridSize ?? { width: 0, height: 0 };
+  const [gridSize, setGridSize] = useState<Size>({ width: 0, height: 0 });
+
+  const onResize: UseResizeObserverCallback = useCallback(
+    ({ contentRect: { width, height } }) => {
+      setGridSize({
+        width,
+        height,
+      });
+    },
+    []
+  );
+  useResizeObserver(gridContainerRef, onResize);
 
   return useMemo(
     () => ({
-      width: Math.min(width, 7 * GRID_WIDTH_MULTIPLIER),
-      height,
+      width: Math.min(gridSize.width, 7 * GRID_WIDTH_MULTIPLIER),
+      height: gridSize.height,
       gridContainerRef,
     }),
-    [height, width]
+    [gridSize.height, gridSize.width]
   );
 };

@@ -1,55 +1,48 @@
-import { act, renderHook } from '@testing-library/react-hooks';
-import { mockResizeObserver } from 'jsdom-testing-mocks';
+import { renderHook } from '@testing-library/react-hooks';
 import { render } from '@testing-library/react';
+import useResizeObserverMock from '@react-hook/resize-observer';
 import { useGridSize } from './useGridSize';
 
-const resizeObserver = mockResizeObserver();
+type UseResizeObserverFn = (
+  target: never,
+  callback: (params: {
+    contentRect: Pick<DOMRectReadOnly, 'width' | 'height'>;
+  }) => void
+) => void;
+
+jest.mock('@react-hook/resize-observer');
 
 describe('useGridSize', () => {
   it('gets size correctly', () => {
-    const { result, rerender } = renderHook(useGridSize);
+    const resizeElement: UseResizeObserverFn = (_, callback) => {
+      callback({ contentRect: { width: 100, height: 200 } });
+    };
+    (useResizeObserverMock as jest.Mock).mockImplementationOnce(resizeElement);
 
-    const { getByTestId } = render(
+    const { result } = renderHook(useGridSize);
+
+    render(
       <div data-testid="test" ref={result.current.gridContainerRef}></div>
     );
 
-    const element = getByTestId('test');
-
-    resizeObserver.mockElementSize(element, {
-      contentBoxSize: { inlineSize: 10, blockSize: 20 },
-    });
-
-    rerender();
-
-    act(() => {
-      resizeObserver.resize();
-    });
-
-    expect(result.current.width).toStrictEqual(10);
-    expect(result.current.height).toStrictEqual(20);
+    expect(result.current.width).toStrictEqual(100);
+    expect(result.current.height).toStrictEqual(200);
   });
 
   it('clips to max width', () => {
-    const { result, rerender } = renderHook(useGridSize);
+    // Try enlarging width to 2000px
+    const resizeElement: UseResizeObserverFn = (_, callback) => {
+      callback({ contentRect: { width: 2000, height: 3000 } });
+    };
+    (useResizeObserverMock as jest.Mock).mockImplementationOnce(resizeElement);
 
-    const { getByTestId } = render(
+    const { result } = renderHook(useGridSize);
+
+    render(
       <div data-testid="test" ref={result.current.gridContainerRef}></div>
     );
 
-    const element = getByTestId('test');
-
-    // Try enlarging to 2000px in width
-    resizeObserver.mockElementSize(element, {
-      contentBoxSize: { inlineSize: 2000, blockSize: 3000 },
-    });
-
-    rerender();
-
-    act(() => {
-      resizeObserver.resize();
-    });
-
-    // Clipped to 1792px in width
+    // Width clipped to 1792px
     expect(result.current.width).toStrictEqual(1792);
     expect(result.current.height).toStrictEqual(3000);
   });

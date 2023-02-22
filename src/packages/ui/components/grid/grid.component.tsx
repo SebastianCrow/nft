@@ -29,6 +29,8 @@ export const Grid: FunctionComponent<GridProps> = ({
 }) => {
   const { width, height, gridContainerRef } = useGridSize();
 
+  console.log('sleposeb', width, height);
+
   const { rowCount, columnCount, rowHeight, columnWidth } = useGridLayout({
     itemsCount,
     gridWidth: width,
