@@ -57,8 +57,6 @@ export const Grid: FunctionComponent<GridProps> = ({
         )}
       >
         {({ rowIndex, columnIndex, style }): ReactElement => {
-          console.log('sleposeb', rowIndex, columnIndex);
-
           const itemIndex = rowIndex * columnCount + columnIndex;
           const cell = createElement<GridCellProps>(children, {
             rowIndex,
