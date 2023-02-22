@@ -35,9 +35,11 @@ export const useFetchListings = ({
   }) => {
     const { items, nextPage } = await fetchListings(pageParam);
 
-    const filteredItems = searchQuery
+    const lowerCaseSearchQuery = searchQuery?.toLowerCase();
+
+    const filteredItems = lowerCaseSearchQuery
       ? items.filter(({ name }: ListingsItem) =>
-          name.toLowerCase().includes(searchQuery.toLowerCase())
+          name.toLowerCase().includes(lowerCaseSearchQuery)
         )
       : items;
 
