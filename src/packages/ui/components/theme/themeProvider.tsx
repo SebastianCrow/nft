@@ -10,7 +10,7 @@ import {
 import { usePrevious } from '../../../../shared';
 import { Theme, getStorageTheme, setStorageTheme } from './themeStorage';
 
-interface ThemeState {
+export interface ThemeState {
   theme: Theme;
   switchTheme: () => void;
 }

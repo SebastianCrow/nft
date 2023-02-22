@@ -18,9 +18,9 @@ export const ThemeSwitcher: FunctionComponent = () => {
       )}
     >
       {theme === Theme.Dark ? (
-        <MoonIcon className="w-6" />
+        <MoonIcon className="w-6" data-testid="themeSwitcher-icon-dark" />
       ) : (
-        <SunIcon className="w-7" />
+        <SunIcon className="w-7" data-testid="themeSwitcher-icon-light" />
       )}
     </div>
   );
