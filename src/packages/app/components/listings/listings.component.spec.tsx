@@ -24,6 +24,7 @@ describe('Listings', () => {
     expect(
       queryByText("We couldn't find anything. Let's try again")
     ).not.toBeInTheDocument();
+    expect(queryByText('Clear search')).not.toBeInTheDocument();
 
     expect(getByTestId('grid-main')).toBeInTheDocument();
   });
@@ -41,6 +42,7 @@ describe('Listings', () => {
     expect(
       getByText("We couldn't find anything. Let's try again")
     ).toBeInTheDocument();
+    expect(getByText('Clear search')).toBeInTheDocument();
 
     expect(queryByTestId('grid-main')).not.toBeInTheDocument();
   });
