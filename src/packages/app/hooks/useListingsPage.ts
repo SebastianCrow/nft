@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { usePrevious } from '../../../shared';
-import { useFetchItemsOnPageChange } from './useFetchItemsOnPageChange';
+import { useOnNextPageUpdate } from './useOnNextPageUpdate';
 import { useResetPageOnSearchQueryChange } from './useResetPageOnSearchQueryChange';
 
 interface UseListingsPageParams {
@@ -29,10 +29,10 @@ export const useListingsPage = ({
   });
 
   const prevPage = usePrevious(page);
-  useFetchItemsOnPageChange({
+  useOnNextPageUpdate({
     prevPage,
     page,
-    fetchNext,
+    onPageUpdate: fetchNext,
   });
 
   return useMemo(

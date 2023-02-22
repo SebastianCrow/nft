@@ -4,19 +4,19 @@ import type { Optional } from '../../../shared';
 export interface UseFetchNextPageParams {
   prevPage: Optional<number>;
   page: number;
-  fetchNext: (page: number) => void;
+  onPageUpdate: (page: number) => void;
 }
-export const useFetchItemsOnPageChange = ({
+export const useOnNextPageUpdate = ({
   prevPage,
   page,
-  fetchNext,
+  onPageUpdate,
 }: UseFetchNextPageParams): void => {
   useEffect(() => {
     if (page < 1) {
       throw new Error(`Page ${page} is lower than 1`);
     }
     if (prevPage && page > prevPage) {
-      fetchNext(page);
+      onPageUpdate(page);
     }
-  }, [fetchNext, page, prevPage]);
+  }, [onPageUpdate, page, prevPage]);
 };

@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import { Card } from '../../../ui';
 import { ITEMS_PER_PAGE } from '../../services/listingsNetwork.service';
-import { useFetchItemsOnPageChange } from '../../hooks/useFetchItemsOnPageChange';
+import { useOnNextPageUpdate } from '../../hooks/useOnNextPageUpdate';
 
 interface ListingsLoadingCardProps {
   itemIndex: number;
@@ -12,10 +12,10 @@ interface ListingsLoadingCardProps {
 export const ListingsLoadingCard: FunctionComponent<
   ListingsLoadingCardProps
 > = ({ itemIndex, page, goToPage }) => {
-  useFetchItemsOnPageChange({
+  useOnNextPageUpdate({
     prevPage: page,
     page: Math.floor(itemIndex / ITEMS_PER_PAGE) + 1,
-    fetchNext: goToPage,
+    onPageUpdate: goToPage,
   });
 
   return <Card />;
