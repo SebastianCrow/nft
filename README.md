@@ -38,11 +38,6 @@ Perform `ESLint` check on the app's codebase.
 - User can search NFT names. The search is performed on the client side (a direct lowercase string match)
 - Failed requests to the API endpoint are retried infinitely every `500ms`
 
-## API endpoint notes :construction:
-
-- It doesn't return NFT names, so they are generated on the client side
-- It gives paths to the very big images (`2000px` x `2000px`) affecting client's performance. Preferably, something around `400px` x `400px` would be nice
-
 ## Additional points :white_check_mark:
 
 - Introduced the shared `packages/ui` as a foundation for the design system that other packages can use
@@ -51,7 +46,7 @@ Perform `ESLint` check on the app's codebase.
 - API calls are cached so there are no redundant requests
 - Next pages are requested from API on demand and partial results are shown to the user ASAP
   - E.g., fetching next pages if there is less than 20 results for the current search query
-- Light and dark themes (affecting scrollbar). User selection is preserved in the local storage
+- Light and dark themes (including scrollbar). User selection is preserved in the local storage
   - Possible improvement: detect preferred theme using `Window.matchMedia()`
 - **Testing? Of course!**
   - `Jest` unit tests for utils, services, etc.
@@ -65,6 +60,11 @@ Perform `ESLint` check on the app's codebase.
   - Recommended `React` and `React Hooks` rules
   - Cooperation with `Prettier`
   - Strict rules for imports (order, enforcing type imports, etc.)
+
+## API endpoint notes :construction:
+
+- It doesn't return NFT names, so they are generated on the client side
+- It gives paths to the very big images (`2000px` x `2000px`) affecting client's performance. Preferably, something around `400px` x `400px` would be nice
 
 ## Responsive layout
 
@@ -97,7 +97,7 @@ Failed requests to the API endpoint are retried infinitely every `500ms`
 
 ## Light and dark themes
 
-Light and dark themes (affecting scrollbar). User selection is preserved in the local storage
+Light and dark themes (including scrollbar). User selection is preserved in the local storage
 
 ![Theme](https://github.com/SebastianCrow/nft/blob/master/readme/theme.gif?raw=true)
 
