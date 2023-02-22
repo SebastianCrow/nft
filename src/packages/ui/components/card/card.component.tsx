@@ -1,11 +1,15 @@
-import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
+import type { FunctionComponent, PropsWithChildren, ReactElement } from 'react';
 import { classes } from '../../../../shared';
 
 interface CardLoaderProps {
   className: string;
+  testId?: string;
 }
 
-const CardLoader: FunctionComponent<CardLoaderProps> = ({ className }) => (
+const CardLoader: FunctionComponent<CardLoaderProps> = ({
+  className,
+  testId,
+}) => (
   <div
     className={classes(
       'py-3 rounded-lg animate-pulse',
@@ -13,17 +17,20 @@ const CardLoader: FunctionComponent<CardLoaderProps> = ({ className }) => (
       'bg-loader dark:bg-dark-loader',
       className
     )}
+    data-testid={testId}
   />
 );
 
 interface CardProps {
-  titleLeft?: ReactNode;
-  titleRight?: ReactNode;
+  titleLeft?: ReactElement;
+  titleRight?: ReactElement;
+  mainLoader?: boolean;
 }
 
 export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
   titleLeft,
   titleRight,
+  mainLoader = true,
   children,
 }) => {
   return (
@@ -36,13 +43,16 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
     >
       <div className="relative aspect-square">
         <div className="absolute inset-0 z-10">{children}</div>
-        <div
-          className={classes(
-            'absolute inset-0 z-0 animate-pulse',
-            'transition-colors',
-            'bg-loader dark:bg-dark-loader'
-          )}
-        />
+        {mainLoader && (
+          <div
+            className={classes(
+              'absolute inset-0 z-0 animate-pulse',
+              'transition-colors',
+              'bg-loader dark:bg-dark-loader'
+            )}
+            data-testid="loader-main"
+          />
+        )}
       </div>
       <div
         className={classes(
@@ -51,8 +61,12 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
           'text dark:text-dark'
         )}
       >
-        {titleLeft ?? <CardLoader className="px-12" />}
-        {titleRight ?? <CardLoader className="px-6" />}
+        {titleLeft ?? (
+          <CardLoader className="px-12" testId="loader-title-left" />
+        )}
+        {titleRight ?? (
+          <CardLoader className="px-6" testId="loader-title-right" />
+        )}
       </div>
     </div>
   );
