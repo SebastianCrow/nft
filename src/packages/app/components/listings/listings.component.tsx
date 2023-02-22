@@ -8,6 +8,8 @@ import { useListingsPage } from '../../hooks/useListingsPage';
 import { classes, useDebounce } from '../../../../shared';
 import { ListingsCard } from './listingsCard.component';
 
+const CARD_ADDITIONAL_VERTICAL_PX = 56;
+
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -56,7 +58,11 @@ export const Listings: FunctionComponent = () => {
         </div>
       )}
       {itemsCount && (
-        <Grid itemsCount={itemsCount} gridElementRef={gridElementRef}>
+        <Grid
+          itemsCount={itemsCount}
+          gridElementRef={gridElementRef}
+          cardAdditionalVerticalPx={CARD_ADDITIONAL_VERTICAL_PX}
+        >
           {(gridCellProps): ReactElement => (
             <ListingsCard
               {...gridCellProps}

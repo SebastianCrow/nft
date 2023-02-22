@@ -16,12 +16,14 @@ import { GridCellWrapper } from './gridCellWrapper.component';
 interface GridProps {
   itemsCount: number;
   gridElementRef: MutableRefObject<HTMLElement | null>;
+  cardAdditionalVerticalPx?: number;
   children: ComponentType<GridCellProps>;
 }
 
 export const Grid: FunctionComponent<GridProps> = ({
   itemsCount,
   gridElementRef,
+  cardAdditionalVerticalPx,
   children,
 }) => {
   const { width, height, gridContainerRef } = useGridSize();
@@ -29,6 +31,7 @@ export const Grid: FunctionComponent<GridProps> = ({
   const { rowCount, columnCount, rowHeight, columnWidth } = useGridLayout({
     itemsCount,
     gridWidth: width,
+    additionalVerticalPx: cardAdditionalVerticalPx,
   });
 
   return (
