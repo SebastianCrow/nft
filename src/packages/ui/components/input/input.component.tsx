@@ -38,6 +38,7 @@ export const Input: FunctionComponent<InputProps> = ({
           'placeholder:text-secondary dark:placeholder:text-dark-secondary',
           'focus:outline focus:dark:outline-dark'
         )}
+        data-testid="input"
       />
       <div
         onClick={clearValue}
@@ -50,6 +51,7 @@ export const Input: FunctionComponent<InputProps> = ({
           'cursor-pointer',
           !value ? 'pointer-events-none' : undefined
         )}
+        data-testid="input-icon-container"
       >
         {!value && (
           <MagnifyingGlassIcon
@@ -58,6 +60,7 @@ export const Input: FunctionComponent<InputProps> = ({
               'transition-colors',
               'text-secondary dark:text-dark'
             )}
+            data-testid="input-icon-search"
           />
         )}
         {value && (
@@ -68,6 +71,7 @@ export const Input: FunctionComponent<InputProps> = ({
               'text dark:text-dark',
               'group-hover:text-secondary dark:group-hover:text-dark-secondary'
             )}
+            data-testid="input-icon-clear"
           />
         )}
       </div>

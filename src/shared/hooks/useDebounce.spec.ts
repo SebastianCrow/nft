@@ -12,7 +12,7 @@ describe('useDebounce', () => {
     jest.useRealTimers();
   });
 
-  it('debounces value correctly', () => {
+  it('debounces changed value', () => {
     const { result, rerender } = renderHook(
       (params: UseDebounceParams<number>) => useDebounce(params),
       {

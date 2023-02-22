@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { usePrevious } from './usePrevious';
 
 describe('usePrevious', () => {
-  it('returns previous value correctly', () => {
+  it('returns previous value', () => {
     const { result, rerender } = renderHook((value) => usePrevious(value), {
       initialProps: 1,
     });

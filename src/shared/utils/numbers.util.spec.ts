@@ -1,7 +1,7 @@
 import { truncatePositive } from './numbers.util';
 
 describe('truncatePositive', () => {
-  it('truncates positive numbers correctly', () => {
+  it('truncates positive numbers', () => {
     expect(truncatePositive(100, 1)).toStrictEqual(100);
 
     expect(truncatePositive(100.2, 1)).toStrictEqual(100.2);
@@ -21,14 +21,14 @@ describe('truncatePositive', () => {
     expect(truncatePositive(100.299, 2)).toStrictEqual(100.29);
   });
 
-  it('truncates positive numbers to zero places correctly', () => {
+  it('truncates positive numbers to zero places', () => {
     expect(truncatePositive(100, 0)).toStrictEqual(100);
     expect(truncatePositive(100.2, 0)).toStrictEqual(100);
     expect(truncatePositive(100.21, 0)).toStrictEqual(100);
     expect(truncatePositive(100.29, 0)).toStrictEqual(100);
   });
 
-  it('truncates zero number correctly', () => {
+  it('truncates zero number', () => {
     expect(truncatePositive(0.0, 1)).toStrictEqual(0);
     expect(truncatePositive(0.0, 2)).toStrictEqual(0);
     expect(truncatePositive(0.0, 3)).toStrictEqual(0);
