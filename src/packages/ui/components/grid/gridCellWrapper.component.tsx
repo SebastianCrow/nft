@@ -17,6 +17,9 @@ interface GridCellWrapperProps {
   style: CSSPropertiesNumericRect;
 }
 
+/**
+ * Wrap {@param children} using a grid cell with an applied {@param style} computed by {@link computeGridCellStyle}
+ */
 export const GridCellWrapper: FunctionComponent<
   PropsWithChildren<GridCellWrapperProps>
 > = ({ style, children }) => {

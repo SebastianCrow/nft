@@ -5,6 +5,9 @@ interface ButtonProps {
   onClick: () => void;
 }
 
+/**
+ * Button with {@param onClick} action and a content from {@param children}
+ */
 export const Button: FunctionComponent<PropsWithChildren<ButtonProps>> = ({
   onClick,
   children,

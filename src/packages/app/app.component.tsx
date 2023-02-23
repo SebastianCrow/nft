@@ -5,6 +5,9 @@ import { ThemeProvider, ThemeWrapper } from '../ui';
 import { Providers } from '../../shared';
 import { Listings } from './components/listings/listings.component';
 
+/**
+ * NFT App with providers
+ */
 export const App: FunctionComponent = () => {
   const providers = useMemo(
     () => [

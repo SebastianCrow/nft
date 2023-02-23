@@ -22,6 +22,9 @@ const ThemeContext = createContext<ThemeState>({
   },
 });
 
+/**
+ * Provide {@link Theme} and a function to switch it to the {@param children}
+ */
 export const ThemeProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
@@ -54,6 +57,9 @@ export const ThemeProvider: FunctionComponent<PropsWithChildren> = ({
   );
 };
 
+/**
+ * Get current {@link Theme}
+ */
 export const useTheme = (): ThemeState => {
   return useContext(ThemeContext);
 };

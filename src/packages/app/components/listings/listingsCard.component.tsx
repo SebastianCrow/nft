@@ -12,6 +12,17 @@ interface ListingsCardProps extends GridCellProps {
   goToPage: (page: number) => void;
 }
 
+/**
+ * Listings item cell in the grid.
+ * It can be either {@link ListingsLoadingCard} or {@link ListingsItemCard}.
+ *
+ * @param itemIndex Item index
+ * @param items Listings items
+ * @param fetchingFinished Whether fetching items is finished
+ * @param page Page
+ * @param goToPage Go to page
+ * @param size Size of the card
+ */
 export const ListingsCard: FunctionComponent<ListingsCardProps> = ({
   itemIndex,
   items,

@@ -27,6 +27,14 @@ interface CardProps {
   mainLoader?: boolean;
 }
 
+/**
+ * Card with a main area and optional titles below
+ *
+ * @param titleLeft Optional bottom-left title
+ * @param titleRight Optional bottom-right title
+ * @param mainLoader Enable/disable a loader for the main area
+ * @param children Component located at the main area
+ */
 export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
   titleLeft,
   titleRight,

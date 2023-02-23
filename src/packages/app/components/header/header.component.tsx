@@ -9,6 +9,13 @@ interface HeaderProps {
   scrollElementRef: RefObject<HTMLElement>;
 }
 
+/**
+ * Page Header
+ *
+ * @param searchQuery Search query in the input
+ * @param setSearchQuery Set search query when user types
+ * @param scrollElementRef Reference to the scroll element (grid)
+ */
 export const Header: FunctionComponent<HeaderProps> = ({
   searchQuery,
   setSearchQuery,

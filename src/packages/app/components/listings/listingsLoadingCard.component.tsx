@@ -10,6 +10,13 @@ interface ListingsLoadingCardProps {
   goToPage: (page: number) => void;
 }
 
+/**
+ * Loading card for items not fetched yet
+ *
+ * @param itemIndex Item index
+ * @param page Page
+ * @param goToPage Called when a card from the next page is rendered (in a virtualized grid)
+ */
 export const ListingsLoadingCard: FunctionComponent<
   ListingsLoadingCardProps
 > = ({ itemIndex, page, goToPage }) => {

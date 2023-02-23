@@ -9,6 +9,14 @@ interface ListingsItemCardProps {
   size: GridCellProps['size'];
 }
 
+/**
+ * Card for the listings item
+ *
+ * @param name Item name
+ * @param price Item price
+ * @param img Item image's url
+ * @param width Card width. Propagated to <img /> element
+ */
 export const ListingsItemCard: FunctionComponent<ListingsItemCardProps> = ({
   item: {
     name,

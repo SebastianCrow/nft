@@ -6,6 +6,11 @@ export interface UseFetchNextPageParams {
   page: number;
   onPageUpdate: (page: number) => void;
 }
+
+/**
+ * Call {@param onPageUpdate} when page is updated: {@param page} different than {@param prevPage}.
+ * It doesn't call {@param onPageUpdate} on mount, just on page update.
+ */
 export const useOnNextPageUpdate = ({
   prevPage,
   page,

@@ -13,6 +13,9 @@ export interface CSSPropertiesNumericRect
   height: number;
 }
 
+/**
+ * Compute grid cell's {@param style} by adding {@link GRID_ITEM_SPACING_PX} and {@link HEADER_HEIGHT_PX}
+ */
 export const computeGridCellStyle = (
   style: CSSPropertiesNumericRect
 ): CSSProperties => ({
@@ -27,6 +30,9 @@ interface GridInnerElementTypeProps {
   style: CSSPropertiesNumericRect;
 }
 
+/**
+ * Custom grid's internal component with height enlarged by {@link HEADER_HEIGHT_PX} and {@link GRID_ITEM_SPACING_PX}
+ */
 const GridInnerElementType: ForwardRefRenderFunction<
   HTMLDivElement,
   GridInnerElementTypeProps

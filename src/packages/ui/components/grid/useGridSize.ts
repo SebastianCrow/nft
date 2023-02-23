@@ -5,6 +5,8 @@ import useResizeObserver from '@react-hook/resize-observer';
 
 export const GRID_WIDTH_MULTIPLIER = 256;
 
+const GRID_MAX_WIDTH = 7 * GRID_WIDTH_MULTIPLIER;
+
 interface Size {
   width: number;
   height: number;
@@ -16,6 +18,9 @@ interface UseGridSizeReturn {
   gridContainerRef: MutableRefObject<HTMLDivElement | null>;
 }
 
+/**
+ * Get size of the grid restricted to {@link GRID_MAX_WIDTH}
+ */
 export const useGridSize = (): UseGridSizeReturn => {
   const gridContainerRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +39,7 @@ export const useGridSize = (): UseGridSizeReturn => {
 
   return useMemo(
     () => ({
-      width: Math.min(gridSize.width, 7 * GRID_WIDTH_MULTIPLIER),
+      width: Math.min(gridSize.width, GRID_MAX_WIDTH),
       height: gridSize.height,
       gridContainerRef,
     }),

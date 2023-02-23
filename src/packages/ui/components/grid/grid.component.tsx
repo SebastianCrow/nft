@@ -21,6 +21,14 @@ interface GridProps {
   children: ComponentType<GridCellProps>;
 }
 
+/**
+ * Render virtualized grid
+ *
+ * @param itemsCount Number of items
+ * @param gridElementRef Reference to the grid element
+ * @param cardAdditionalVerticalPx Additional height to add to every card
+ * @param children Grid cells
+ */
 export const Grid: FunctionComponent<GridProps> = ({
   itemsCount,
   gridElementRef,
@@ -28,8 +36,6 @@ export const Grid: FunctionComponent<GridProps> = ({
   children,
 }) => {
   const { width, height, gridContainerRef } = useGridSize();
-
-  console.log('sleposeb', width, height);
 
   const { rowCount, columnCount, rowHeight, columnWidth } = useGridLayout({
     itemsCount,

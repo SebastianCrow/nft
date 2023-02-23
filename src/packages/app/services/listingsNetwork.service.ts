@@ -19,6 +19,11 @@ export interface ListingsItem {
   };
 }
 
+/**
+ * Fetch NFT listings from the API endpoint
+ *
+ * @param page Page to fetch
+ */
 export const fetchListings = async (page: number): Promise<ListingsPage> => {
   const offset = (page - 1) * ITEMS_PER_PAGE;
 
@@ -32,12 +37,21 @@ export const fetchListings = async (page: number): Promise<ListingsPage> => {
   };
 };
 
+/**
+ * Map listings item from backend DTO to the app representation
+ *
+ * TODO: Names are missing in the API response so they're computed on the client side
+ *
+ * @param price NFT price
+ * @param extra Extra info: image url
+ * @param index Index of the item
+ * @param offset Offset from the start of items list
+ */
 const mapListingsItem = (
   { price, extra }: ListingsItem,
   index: number,
   offset: number
 ): ListingsItem => ({
-  // TODO: Names are missing in the API response so compute them on the client side
   name: `Okay Bear #${offset + index + 1}`,
   price: truncatePositive(price, 4),
   extra,

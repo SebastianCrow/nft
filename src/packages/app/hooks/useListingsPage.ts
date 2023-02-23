@@ -13,6 +13,10 @@ interface UseListingsPageReturn {
   goToPage: (page: number) => void;
 }
 
+/**
+ * Control a state of the page based on {@param searchQuery}.
+ * Call {@param fetchNext} when going to next page and reset page on {@param searchQuery} update.
+ */
 export const useListingsPage = ({
   searchQuery,
   fetchNext,

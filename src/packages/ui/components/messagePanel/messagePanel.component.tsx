@@ -8,6 +8,10 @@ interface MessagePanelProps {
   onAction?: () => void;
 }
 
+/**
+ * Display {@param title} and {@param message} to the user.
+ * If {@param onAction} is provided, render an action button for it.
+ */
 export const MessagePanel: FunctionComponent<MessagePanelProps> = ({
   title,
   message,

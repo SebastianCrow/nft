@@ -16,6 +16,17 @@ export interface UseGridLayoutReturn {
   columnWidth: number;
 }
 
+/**
+ * Get layout for the grid:
+ * - row count
+ * - column count
+ * - row height
+ * - column width
+ * based on:
+ * - {@param itemsCount}: number of items
+ * - {@param gridWidth}: width of the grid
+ * - {@param additionalVerticalPx}: additional vertical height for the card (e.g., `+50px` to card's width)
+ */
 export const useGridLayout = ({
   itemsCount,
   gridWidth,

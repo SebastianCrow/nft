@@ -9,6 +9,9 @@ interface InputProps {
   placeholder?: string;
 }
 
+/**
+ * Controlled input component with injected {@param value}, {@param onValueChange} callback, and a specified {@param placeholder}
+ */
 export const Input: FunctionComponent<InputProps> = ({
   value,
   onValueChange,

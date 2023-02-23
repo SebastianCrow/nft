@@ -10,6 +10,10 @@ import { ListingsCard } from './listingsCard.component';
 
 const CARD_ADDITIONAL_VERTICAL_PX = 56;
 
+/**
+ * Listings Page.
+ * Renders {@link Header} and a virtualized {@link Grid} with NFT {@link ListingsCard} items.
+ */
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 

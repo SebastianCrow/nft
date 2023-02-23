@@ -6,6 +6,10 @@ interface UseResetPageOnSearchQueryChangeParams {
   onReset: () => void;
 }
 
+/**
+ * Reset page by calling {@param onReset} on {@param searchQuery} change.
+ * It doesn't call {@param onReset} on mount, just on update.
+ */
 export const useResetPageOnSearchQueryChange = ({
   searchQuery,
   onReset,

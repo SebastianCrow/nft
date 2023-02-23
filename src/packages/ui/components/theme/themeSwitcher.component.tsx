@@ -4,6 +4,9 @@ import { classes } from '../../../../shared';
 import { Theme } from './themeStorage';
 import { useTheme } from './themeProvider';
 
+/**
+ * Switch between light and dark themes
+ */
 export const ThemeSwitcher: FunctionComponent = () => {
   const { theme, switchTheme } = useTheme();
   return (
