@@ -2,7 +2,7 @@
 
 App displaying NFTs on `Solana` built in `React` and based on [Create React App](https://github.com/facebook/create-react-app).
 
-## Scripts to go
+## Scripts to go :rocket:
 
 ### `yarn start`
 
@@ -63,8 +63,9 @@ Perform `ESLint` check on the app's codebase.
 
 ## API endpoint notes :construction:
 
-- It doesn't return NFT names, so they are generated on the client side
-- It gives paths to the very big images (`2000px` x `2000px`) affecting client's performance. Preferably, something around `400px` x `400px` would be nice
+- It returns just a single `img` path to the very big original image (`2000px` x `2000px`) affecting client's performance (as seen in `Google Lighthouse`)
+  - Thumbnails around `400px` x `400px` would be a sweet spot
+  - Preferably, it should be possible to fetch different sizes/variants from CDN to match the client's layout size
 
 ## Responsive layout
 
