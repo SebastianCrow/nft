@@ -31,12 +31,16 @@ export const ListingsCard: FunctionComponent<ListingsCardProps> = ({
   goToPage,
   size,
 }) => {
+  // Requested item index is out of scope (taking items + loading cards into account)
   if (itemIndex >= items.length + ITEMS_PER_PAGE) {
     return null;
   }
 
   const item = items[itemIndex];
 
+  // No fetched item found for the requested item index
+  // - Render loading card for in progress fetching
+  // - No card after fetching is finished
   if (!item) {
     return !fetchingFinished ? (
       <ListingsLoadingCard
@@ -47,5 +51,6 @@ export const ListingsCard: FunctionComponent<ListingsCardProps> = ({
     ) : null;
   }
 
+  // Item found
   return <ListingsItemCard item={item} size={size} />;
 };

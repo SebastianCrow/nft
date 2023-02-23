@@ -19,7 +19,7 @@ interface UseGridSizeReturn {
 }
 
 /**
- * Get size of the grid restricted to {@link GRID_MAX_WIDTH}
+ * Get a current size of the grid restricted to {@link GRID_MAX_WIDTH}
  */
 export const useGridSize = (): UseGridSizeReturn => {
   const gridContainerRef = useRef<HTMLDivElement>(null);

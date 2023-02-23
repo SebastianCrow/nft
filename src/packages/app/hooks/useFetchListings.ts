@@ -78,7 +78,7 @@ export const useFetchListings = ({
     const pages = data?.pages ?? [];
     const lastPageItems = pages[pages.length - 1]?.items;
 
-    // Fetched too little items so page is not filled -> Fetch next page.
+    // Fetched too little items so page is not filled yet -> Fetch next page.
     // It happens when results are filtered with search query.
     if (lastPageItems && lastPageItems.length < ITEMS_PER_PAGE && hasNextPage) {
       fetchNextPage();

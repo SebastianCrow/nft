@@ -28,6 +28,7 @@ export const Header: FunctionComponent<HeaderProps> = ({
     scrollElementRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [scrollElementRef]);
 
+  // Stop event propagation when clicking header children (input, theme switcher) to prevent a scroll to top logic
   const stopEventPropagation = useCallback((event: SyntheticEvent) => {
     event.stopPropagation();
   }, []);

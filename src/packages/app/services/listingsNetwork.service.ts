@@ -46,5 +46,5 @@ export const fetchListings = async (page: number): Promise<ListingsPage> => {
  */
 const mapListingsItem = (item: ListingsItem): ListingsItem => ({
   ...item,
-  price: truncatePositive(item.price, 4),
+  price: truncatePositive(item.price, 4), // make sure that prices are not too long
 });

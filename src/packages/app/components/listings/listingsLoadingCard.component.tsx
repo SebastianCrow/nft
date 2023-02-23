@@ -15,7 +15,7 @@ interface ListingsLoadingCardProps {
  *
  * @param itemIndex Item index
  * @param page Page
- * @param goToPage Called when a card from the next page is rendered (in a virtualized grid)
+ * @param goToPage Called when a card from the next page is rendered (in the virtualized grid)
  */
 export const ListingsLoadingCard: FunctionComponent<
   ListingsLoadingCardProps
@@ -25,6 +25,7 @@ export const ListingsLoadingCard: FunctionComponent<
     [itemIndex]
   );
 
+  // Fetch new items when the card from next page is rendered in the virtualized grid
   useOnNextPageUpdate({
     prevPage: page,
     page: itemPage,

@@ -32,6 +32,7 @@ export const useListingsPage = ({
     onReset: resetPage,
   });
 
+  // Fetch new items when the next page is reached
   const prevPage = usePrevious(page);
   useOnNextPageUpdate({
     prevPage,
