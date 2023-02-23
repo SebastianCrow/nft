@@ -34,7 +34,17 @@ export const fetchListings = async (page: number): Promise<ListingsPage> => {
   );
 
   return {
-    items: results,
+    items: results.map(mapListingsItem),
     nextPage: results.length === ITEMS_PER_PAGE ? page + 1 : undefined,
   };
 };
+
+/**
+ * Map listings item from backend DTO to the app representation
+ *
+ * @param item NFT item
+ */
+const mapListingsItem = (item: ListingsItem): ListingsItem => ({
+  ...item,
+  price: truncatePositive(item.price, 4),
+});
