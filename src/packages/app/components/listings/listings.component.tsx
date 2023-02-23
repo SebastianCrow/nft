@@ -8,6 +8,8 @@ import { useListingsPage } from '../../hooks/useListingsPage';
 import { Grid, MessagePanel } from '../../../ui';
 import { ListingsCard } from './listingsCard.component';
 
+const SEARCH_QUERY_DEBOUNCE_DELAY = 200;
+
 const CARD_ADDITIONAL_VERTICAL_PX = 56;
 
 /**
@@ -17,7 +19,10 @@ const CARD_ADDITIONAL_VERTICAL_PX = 56;
 export const Listings: FunctionComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const debouncedSearchQuery = useDebounce({ value: searchQuery, delay: 100 });
+  const debouncedSearchQuery = useDebounce({
+    value: searchQuery,
+    delay: SEARCH_QUERY_DEBOUNCE_DELAY,
+  });
 
   const gridElementRef = useRef<HTMLElement>(null);
 
