@@ -109,38 +109,30 @@ Light and dark themes (including scrollbar). User selection is preserved in the 
   - [`react`](https://github.com/facebook/react)
   - [`typescript`](https://github.com/microsoft/TypeScript)
 
-
-- Virtualized grid (a lighter and improved alternative to the more complex `react-virtualized`)
+- Virtualized grid (a lighter and improved alternative to the more complex [`react-virtualized`](https://github.com/bvaughn/react-virtualized))
   - [`react-window`](https://github.com/bvaughn/react-window)
-
 
 - Query library to call API endpoint with very handful features out of the box (retry for failed requests, avoid a double call on component mount in React dev mode, etc.)
   - [`@tanstack/react-query`](https://github.com/TanStack/query)
-
 
 - Utility CSS framework with a plugin for scrollbar's styling
   - [`tailwindcss`](https://github.com/tailwindlabs/tailwindcss)
   - [`tailwind-scrollbar`](https://github.com/adoxography/tailwind-scrollbar)
 
-
 - `React` hook to notify on any element's resize. It uses `ResizeObserver API` and a fallback on older browsers
   - [`@react-hook/resize-observer`](https://github.com/ZeeCoder/use-resize-observer)
-
 
 - Least Recently Used cache to store requests with a max items limit to avoid a potential performance degradation 
   - [`lru-cache`](https://github.com/isaacs/node-lru-cache)
 
-
 - `Heroicons` for `React`
   - [`@heroicons/react`](https://github.com/tailwindlabs/heroicons)
-
 
 - Testing `React` components and hooks
   - [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)
   - [`@testing-library/react`](https://github.com/testing-library/react-testing-library)
   - [`@testing-library/react-hooks`](https://github.com/testing-library/react-hooks-testing-library)
   - [`@testing-library/user-event`](https://github.com/testing-library/user-event)
-
 
 - Linting and code formatting
   - [`eslint`](https://github.com/eslint/eslint)
