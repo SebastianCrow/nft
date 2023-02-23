@@ -50,6 +50,7 @@ Perform `ESLint` check on the app's codebase.
   - E.g., fetching next pages if there is less than 20 results for the current search query
 - Light and dark themes (including scrollbar). User selection is preserved in the local storage
   - Possible improvement: detect preferred theme using `Window.matchMedia()`
+- Scrolling grid to top on header click
 - Included [`Roboto Flex`](https://fonts.google.com/specimen/Roboto+Flex) font
 - **Testing? Of course!**
   - `Jest` unit tests for utils, services, etc.
