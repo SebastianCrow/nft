@@ -45,6 +45,7 @@ Perform `ESLint` check on the app's codebase.
   - `Tailwind CSS` allows to compose style for the components in a fast and descriptive way
 - API calls are cached so there are no redundant requests
   - LRU cache with a size limit to avoid a potential performance degradation
+  - Possible improvement: add a way to force re-fetch (button, automatically on window focus, etc.)
 - Next pages are requested from API on demand and partial results are shown to the user ASAP
   - E.g., fetching next pages if there is less than 20 results for the current search query
 - Light and dark themes (including scrollbar). User selection is preserved in the local storage
