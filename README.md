@@ -140,10 +140,9 @@ Light and dark themes (including scrollbar). User selection is preserved in the 
     - [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint)
     - [`@typescript-eslint/parser`](https://github.com/typescript-eslint/typescript-eslint)
     - [`eslint-import-resolver-typescript`](https://github.com/import-js/eslint-import-resolver-typescript)
-  - `React` and `React Hooks` linting
+  - `React` and [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) linting
     - [`eslint-plugin-react`](https://github.com/jsx-eslint/eslint-plugin-react)
     - [`eslint-plugin-react-hooks`](https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks)
-      - [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html)
   - Cooperation with `Prettier` code formatter
     - [`prettier`](https://github.com/prettier/prettier)
     - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier)
