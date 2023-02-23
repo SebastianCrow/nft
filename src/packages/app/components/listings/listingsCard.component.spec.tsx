@@ -6,9 +6,9 @@ import { ListingsCard } from './listingsCard.component';
 
 describe('ListingsCard', () => {
   const ITEMS: ListingsItem[] = [
-    { name: 'Item1', price: 1, extra: { img: 'https://img.item1' } },
-    { name: 'Item2', price: 2, extra: { img: 'https://img.item2' } },
-    { name: 'Item3', price: 3, extra: { img: 'https://img.item3' } },
+    { title: 'Item1', price: 1, img: 'https://img.item1' },
+    { title: 'Item2', price: 2, img: 'https://img.item2' },
+    { title: 'Item3', price: 3, img: 'https://img.item3' },
   ];
 
   const COLUMN_COUNT = 2;

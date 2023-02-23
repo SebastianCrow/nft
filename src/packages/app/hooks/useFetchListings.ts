@@ -33,8 +33,8 @@ const fetchFilteredListings: FetchFilteredListingsType =
     const lowerCaseSearchQuery = searchQuery?.toLowerCase();
 
     const filteredItems = lowerCaseSearchQuery
-      ? items.filter(({ name }: ListingsItem) =>
-          name.toLowerCase().includes(lowerCaseSearchQuery)
+      ? items.filter(({ title }: ListingsItem) =>
+          title.toLowerCase().includes(lowerCaseSearchQuery)
         )
       : items;
 

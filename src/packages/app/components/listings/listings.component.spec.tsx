@@ -5,7 +5,7 @@ import { Listings } from './listings.component';
 
 describe('Listings', () => {
   const ITEMS: ListingsItem[] = [
-    { name: 'Item1', price: 1, extra: { img: 'https://img.item1' } },
+    { title: 'Item1', price: 1, img: 'https://img.item1' },
   ];
 
   it('does not render no results page when fetching is not finished yet', () => {
