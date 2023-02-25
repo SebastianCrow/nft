@@ -1,9 +1,21 @@
 import type { CSSProperties, ForwardRefRenderFunction } from 'react';
 import { forwardRef } from 'react';
-import { GRID_ITEM_SPACING_PX } from './useGridLayout';
 
 // TODO: Header is static right now. Compute height with `useResizeObserver` if needed (dynamic header height)
 const HEADER_HEIGHT_PX = 64;
+
+export const GRID_ITEM_SPACING_PX = 16;
+
+export const GRID_COLUMN_BREAKPOINTS = [
+  { minWidth: 1760, count: 6 },
+  { minWidth: 1460, count: 5 },
+  { minWidth: 1160, count: 4 },
+  { minWidth: 780, count: 3 },
+  { minWidth: 0, count: 2 },
+] as const;
+
+export const GRID_MAX_WIDTH =
+  GRID_COLUMN_BREAKPOINTS[0].minWidth + 2 * GRID_ITEM_SPACING_PX;
 
 export interface CSSPropertiesNumericRect
   extends Pick<CSSProperties, 'top' | 'left' | 'width' | 'height'> {

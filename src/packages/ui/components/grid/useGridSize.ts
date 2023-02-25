@@ -2,10 +2,7 @@ import type { MutableRefObject } from 'react';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import type { UseResizeObserverCallback } from '@react-hook/resize-observer';
 import useResizeObserver from '@react-hook/resize-observer';
-
-export const GRID_WIDTH_MULTIPLIER = 256;
-
-const GRID_MAX_WIDTH = 7 * GRID_WIDTH_MULTIPLIER;
+import { GRID_MAX_WIDTH } from './grid.layout';
 
 interface Size {
   width: number;

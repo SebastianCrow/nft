@@ -67,8 +67,8 @@ Perform `ESLint` check on the app's codebase.
 
 ## API endpoint notes :construction:
 
-- It returns just a single `img` path to the very big original image (`2000px` x `2000px`) affecting client's performance (as seen in `Google Lighthouse`)
-  - Thumbnails around `400px` x `400px` would be a sweet spot
+- It returns just a single `img` path to the very big original PNG image (`2000px` x `2000px`) affecting client's performance (as seen in `Google Lighthouse`)
+  - Thumbnails around `400px` x `400px` in a next-gen format would be a sweet spot
   - Preferably, it should be possible to fetch different sizes/variants from CDN to match the client's layout size
 
 ## Responsive layout

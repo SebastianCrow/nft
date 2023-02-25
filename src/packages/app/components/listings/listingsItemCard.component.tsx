@@ -1,13 +1,8 @@
 import type { FunctionComponent } from 'react';
-import type { ListingsItem } from '../../services/listingsNetwork.service';
-import type { GridCellProps } from '../../../ui';
+import type { GridItemCellProps } from '../../../ui';
 import { Card } from '../../../ui';
 import { ReactComponent as LogoSolana } from '../../../../resources/logo-solana.svg';
-
-interface ListingsItemCardProps {
-  item: ListingsItem;
-  size: GridCellProps['size'];
-}
+import type { ListingsItem } from '../../services/listingsNetwork.service';
 
 /**
  * Card for the listings item
@@ -15,12 +10,10 @@ interface ListingsItemCardProps {
  * @param title Item name
  * @param price Item price
  * @param img Item image's url
- * @param width Card width. Propagated to <img /> element
  */
-export const ListingsItemCard: FunctionComponent<ListingsItemCardProps> = ({
-  item: { title, price, img },
-  size: { width },
-}) => {
+export const ListingsItemCard: FunctionComponent<
+  GridItemCellProps<ListingsItem>
+> = ({ item: { title, price, img } }) => {
   return (
     <Card
       key={title}
@@ -32,7 +25,7 @@ export const ListingsItemCard: FunctionComponent<ListingsItemCardProps> = ({
         </div>
       }
     >
-      <img src={img} alt={`Image for ${name}`} width={width} height={width} />
+      <img src={img} alt={`Image for ${title}`} loading="lazy" />
     </Card>
   );
 };

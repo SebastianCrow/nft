@@ -1,40 +1,44 @@
-import type {
-  FunctionComponent,
-  MutableRefObject,
-  ComponentType,
-  ReactElement,
-} from 'react';
-import { createElement } from 'react';
+import type { MutableRefObject, ComponentType, ReactElement } from 'react';
+import { useMemo } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { classes } from '../../../../shared';
 import { useGridLayout } from './useGridLayout';
 import { useGridSize } from './useGridSize';
-import type { GridCellProps } from './gridCellWrapper.component';
-import { GridCellWrapper } from './gridCellWrapper.component';
-import type { CSSPropertiesNumericRect } from './grid.layout';
+import type {
+  GridCellItemData,
+  GridItemCellProps,
+  GridLoadingCellProps,
+} from './gridCell.component';
+import { GridCell } from './gridCell.component';
 import { LayoutGridInnerElementType } from './grid.layout';
 
-interface GridProps {
+interface GridProps<ItemType> {
+  loadedItems: ItemType[];
   itemsCount: number;
   gridElementRef: MutableRefObject<HTMLElement | null>;
   cardAdditionalVerticalPx?: number;
-  children: ComponentType<GridCellProps>;
+  LoadingCellComponent: ComponentType<GridLoadingCellProps>;
+  ItemCellComponent: ComponentType<GridItemCellProps<ItemType>>;
 }
 
 /**
  * Render virtualized grid
  *
- * @param itemsCount Number of items
+ * @param loadedItems An array of loaded items
+ * @param itemsCount Number of items. If it's greater than {@param loadedItems}'s length, the remaining items are rendered with {@param LoadingCellComponent}
  * @param gridElementRef Reference to the grid element
  * @param cardAdditionalVerticalPx Additional height to add to every card
- * @param children Grid cells
+ * @param LoadingCellComponent Component to render a loading cell before an item is loaded
+ * @param ItemCellComponent Component to render an item cell after it is loaded
  */
-export const Grid: FunctionComponent<GridProps> = ({
+export const Grid = <ItemType,>({
+  loadedItems,
   itemsCount,
   gridElementRef,
   cardAdditionalVerticalPx,
-  children,
-}) => {
+  LoadingCellComponent,
+  ItemCellComponent,
+}: GridProps<ItemType>): ReactElement => {
   const { width, height, gridContainerRef } = useGridSize();
 
   const { rowCount, columnCount, rowHeight, columnWidth } = useGridLayout({
@@ -43,13 +47,31 @@ export const Grid: FunctionComponent<GridProps> = ({
     additionalVerticalPx: cardAdditionalVerticalPx,
   });
 
+  const itemData: GridCellItemData<ItemType> = useMemo(
+    () => ({
+      loadedItems,
+      itemsCount,
+      columnCount,
+      LoadingCellComponent,
+      ItemCellComponent,
+    }),
+    [
+      ItemCellComponent,
+      LoadingCellComponent,
+      columnCount,
+      itemsCount,
+      loadedItems,
+    ]
+  );
+
   return (
     <div
       className="h-full flex justify-center"
       ref={gridContainerRef}
       data-testid="grid-main"
     >
-      <FixedSizeGrid
+      <FixedSizeGrid<GridCellItemData<ItemType>>
+        itemData={itemData}
         columnCount={columnCount}
         columnWidth={columnWidth}
         width={width}
@@ -64,23 +86,7 @@ export const Grid: FunctionComponent<GridProps> = ({
           'scrollbar-track-scrollbarTrack dark:scrollbar-track-dark-scrollbarTrack'
         )}
       >
-        {({ rowIndex, columnIndex, style }): ReactElement => {
-          const itemIndex = rowIndex * columnCount + columnIndex;
-          const cell = createElement<GridCellProps>(children, {
-            rowIndex,
-            columnIndex,
-            itemIndex,
-            size: {
-              width: columnWidth,
-              height: rowHeight,
-            },
-          });
-          return (
-            <GridCellWrapper style={style as CSSPropertiesNumericRect}>
-              {cell}
-            </GridCellWrapper>
-          );
-        }}
+        {GridCell}
       </FixedSizeGrid>
     </div>
   );

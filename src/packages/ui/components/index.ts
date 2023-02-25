@@ -1,6 +1,9 @@
 export { Button } from './button/button.component';
 export { Card } from './card/card.component';
-export type { GridCellProps } from './grid/gridCellWrapper.component';
+export type {
+  GridLoadingCellProps,
+  GridItemCellProps,
+} from './grid/gridCell.component';
 export { Grid } from './grid/grid.component';
 export { Input } from './input/input.component';
 export { MessagePanel } from './messagePanel/messagePanel.component';

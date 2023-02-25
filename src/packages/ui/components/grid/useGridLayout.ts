@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
-import { GRID_WIDTH_MULTIPLIER } from './useGridSize';
-
-export const GRID_ITEM_SPACING_PX = 16;
+import { ensureDefined } from '../../../../shared';
+import { GRID_COLUMN_BREAKPOINTS, GRID_ITEM_SPACING_PX } from './grid.layout';
 
 interface UseGridLayoutParams {
   itemsCount: number;
@@ -33,7 +32,10 @@ export const useGridLayout = ({
   additionalVerticalPx = 0,
 }: UseGridLayoutParams): UseGridLayoutReturn => {
   const columnCount = useMemo(
-    () => [6, 5, 4, 3].find((r) => gridWidth >= r * GRID_WIDTH_MULTIPLIER) ?? 2,
+    () =>
+      ensureDefined(
+        GRID_COLUMN_BREAKPOINTS.find(({ minWidth }) => gridWidth >= minWidth)
+      ).count,
     [gridWidth]
   );
 
