@@ -18,6 +18,9 @@ export interface ListingsPage {
 export interface ListingsItem {
   title: string;
   price: number;
+  // TODO: API returns a big original image (2000px x 2000px).
+  //  Thumbnails around 400px x 400px in a next-gen format would be a sweet spot.
+  //  Potentially, a responsive size/variant based on the client's layout size.
   img: string;
 }
 
