@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
+import { act } from '@testing-library/react';
 import { useDebounce } from './useDebounce';
 
 describe('useDebounce', () => {
@@ -25,11 +26,15 @@ describe('useDebounce', () => {
     expect(result.current).toStrictEqual(1);
 
     // Delay almost reached -> Value not updated yet
-    jest.advanceTimersByTime(100 - 1); // 99ms
+    act(() => {
+      jest.advanceTimersByTime(100 - 1); // 99ms
+    });
     expect(result.current).toStrictEqual(1);
 
     // Delay reached -> Value updated
-    jest.advanceTimersByTime(1); // 100ms
+    act(() => {
+      jest.advanceTimersByTime(1); // 100ms
+    });
     expect(result.current).toStrictEqual(2);
   });
 
@@ -48,20 +53,28 @@ describe('useDebounce', () => {
     expect(result.current).toStrictEqual(1);
 
     // Delay almost reached -> Value not updated
-    jest.advanceTimersByTime(100 - 1); // 99ms
+    act(() => {
+      jest.advanceTimersByTime(100 - 1); // 99ms
+    });
     expect(result.current).toStrictEqual(1);
 
     // Delay changed -> Value not updated
     rerender({ value: 2, delay: 200 }); // 99ms
-    jest.advanceTimersByTime(1); // 100ms
+    act(() => {
+      jest.advanceTimersByTime(1); // 100ms
+    });
     expect(result.current).toStrictEqual(1);
 
     // Delay almost reached -> Value not updated yet
-    jest.advanceTimersByTime(198); // 298ms
+    act(() => {
+      jest.advanceTimersByTime(198); // 298ms
+    });
     expect(result.current).toStrictEqual(1);
 
     // Delay reached -> Value updated
-    jest.advanceTimersByTime(1); // 299ms
+    act(() => {
+      jest.advanceTimersByTime(1); // 299ms
+    });
     expect(result.current).toStrictEqual(2);
   });
 });
