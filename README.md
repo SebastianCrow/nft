@@ -32,9 +32,9 @@ Perform `ESLint` check on the app's codebase.
 
 ## Main points :tada: 
 
-- App loads first 20 NFT listings from the API and displays it as cards in the responsive grid
+- App loads first 20 NFT listings from the API and displays it as cards in the responsive virtualized grid
 - Next items are fetched from the API endpoint on demand when user scrolls down the page (infinite scrolling)
-- The grid is virtualized so it the total items count doesn't matter because it doesn't hurt performance
+- The grid is virtualized so the total items count doesn't matter because it doesn't hurt performance
 - User can search NFT names. The search is performed on the client side (a direct lowercase string match)
 - Failed requests to the API endpoint are retried infinitely every `500ms`
 
@@ -71,9 +71,9 @@ Perform `ESLint` check on the app's codebase.
   - Thumbnails around `400px` x `400px` in a next-gen format would be a sweet spot
   - Preferably, it should be possible to fetch different sizes/variants from CDN to match the client's layout size
 
-## Responsive layout
+## Responsive layout with a virtualized grid
 
-Responsive desktop/mobile layout spanning from 2 to 6 columns
+Responsive desktop/mobile layout spanning from 2 to 6 columns in a virtualized grid with lazy-loaded images
 
 ![Desktop](https://github.com/SebastianCrow/nft/blob/master/readme/desktop.png?raw=true)
 
