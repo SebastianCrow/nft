@@ -37,7 +37,8 @@ export const Header: FunctionComponent<HeaderProps> = ({
     <div
       onClick={scrollToTop}
       className={classes(
-        'flex justify-center items-center absolute top-0 left-0 right-0 z-10',
+        'absolute top-0 left-0 right-0 z-10',
+        'flex items-center justify-start sm:justify-center',
         'py-2 pl-4 pr-20 sm:pr-4',
         'transition-colors',
         'border-b',
@@ -46,7 +47,7 @@ export const Header: FunctionComponent<HeaderProps> = ({
       )}
       data-testid="header-main"
     >
-      <div onClick={stopEventPropagation} className="w-full sm:w-1/2">
+      <div onClick={stopEventPropagation} className="w-10/12 sm:w-1/2">
         <Input
           value={searchQuery}
           onValueChange={setSearchQuery}
