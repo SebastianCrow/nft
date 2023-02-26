@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: Mobile Safari/iOS improvements (theme support for status bar, hide address bar on page scroll, etc.) */
+
 html, body, #root {
     @apply h-full;
 }
