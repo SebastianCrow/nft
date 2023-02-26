@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: Some adjustments around themes (apply body bg color to avoid mismatch when user scrolls to the very top/bottom, etc.) */
+
 /* TODO: Mobile Safari/iOS improvements (theme support for status bar, hide address bar on page scroll, etc.) */
 
 html, body, #root {
