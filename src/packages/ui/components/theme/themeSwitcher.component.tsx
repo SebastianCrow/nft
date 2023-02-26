@@ -15,6 +15,7 @@ export const ThemeSwitcher: FunctionComponent = () => {
       className={classes(
         'flex justify-center items-center w-12 h-12',
         'cursor-pointer',
+        'rounded-lg',
         'transition-colors',
         'text dark:text-dark',
         'hover:text-secondary dark:hover:text-dark-secondary'

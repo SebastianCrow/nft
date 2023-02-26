@@ -2,10 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TODO: Some adjustments around themes (apply body bg color to avoid mismatch when user scrolls to the very top/bottom, etc.) */
-
 /* TODO: Mobile Safari/iOS improvements (theme support for status bar, hide address bar on page scroll, etc.) */
 
 html, body, #root {
     @apply h-full;
+
+    /* TODO: Remove after doing adjustments to themes (load theme faster, apply body bg color to avoid mismatch when user scrolls to the very top/bottom, etc.) */
+    @apply overflow-hidden;
 }
