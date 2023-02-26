@@ -37,9 +37,9 @@ export const Header: FunctionComponent<HeaderProps> = ({
     <div
       onClick={scrollToTop}
       className={classes(
-        'absolute top-0 left-0 right-0 z-10',
+        'absolute top-0 left-0 right-2 z-10',
         'flex items-center justify-start sm:justify-center',
-        'py-2 pl-4 pr-20 sm:pr-4',
+        'py-2 pl-4 pr-20 sm:pr-2',
         'transition-colors',
         'border-b',
         floatingHeader ? 'border-b dark:border-b-dark' : 'border-b-transparent',
