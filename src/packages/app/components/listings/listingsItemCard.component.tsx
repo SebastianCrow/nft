@@ -25,7 +25,12 @@ export const ListingsItemCard: FunctionComponent<
         </div>
       }
     >
-      <img src={img} alt={`Image for ${title}`} loading="lazy" />
+      <img
+        src={img}
+        alt={`Image for ${title}`}
+        loading="lazy"
+        className="h-full"
+      />
     </Card>
   );
 };
