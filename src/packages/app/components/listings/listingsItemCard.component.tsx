@@ -25,6 +25,7 @@ export const ListingsItemCard: FunctionComponent<
         </div>
       }
     >
+      {/* TODO: Safari can display a white border for lazy-loaded images (https://stackoverflow.com/q/71992334, https://nextjs.org/docs/api-reference/next/image#known-browser-bugs) */}
       <img
         src={img}
         alt={`Image for ${title}`}

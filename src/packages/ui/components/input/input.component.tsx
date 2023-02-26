@@ -39,6 +39,8 @@ export const Input: FunctionComponent<InputProps> = ({
           'transition-colors',
           'text dark:text-dark bg-highlight dark:bg-dark-highlight',
           'placeholder:text-secondary dark:placeholder:text-dark-secondary',
+          // TODO: Outline on Safari is not rounded -> Custom outline (https://medium.com/@jeandesravines/use-border-radius-and-outline-simultaneously-on-safari-14ce92889e1f)
+          'outline-1',
           'focus:outline focus:dark:outline-dark'
         )}
         data-testid="input-main"

@@ -1,6 +1,9 @@
 import type { FunctionComponent, PropsWithChildren, ReactElement } from 'react';
 import { classes } from '../../../../shared';
 
+const ROUNDED_CLASS = 'rounded-xl overflow-hidden';
+const ROUNDED_TOP_CLASS = 'rounded-t-xl overflow-hidden';
+
 interface CardLoaderProps {
   className: string;
   testId?: string;
@@ -12,7 +15,7 @@ const CardLoader: FunctionComponent<CardLoaderProps> = ({
 }) => (
   <div
     className={classes(
-      'py-3 rounded-lg animate-pulse',
+      'h-6 rounded-lg animate-pulse',
       'transition-colors',
       'bg-loader dark:bg-dark-loader',
       className
@@ -44,19 +47,22 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
   return (
     <div
       className={classes(
-        'rounded-xl overflow-hidden',
         'transition-colors',
-        'border dark:border-dark'
+        'border dark:border-dark',
+        ROUNDED_CLASS
       )}
     >
       <div className="relative aspect-square">
-        <div className="absolute inset-0 z-10">{children}</div>
+        <div className={classes('absolute inset-0 z-10', ROUNDED_TOP_CLASS)}>
+          {children}
+        </div>
         {mainLoader && (
           <div
             className={classes(
               'absolute inset-0 z-0 animate-pulse',
               'transition-colors',
-              'bg-loader dark:bg-dark-loader'
+              'bg-loader dark:bg-dark-loader',
+              ROUNDED_TOP_CLASS
             )}
             data-testid="card-loader-main"
           />
@@ -70,10 +76,10 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({
         )}
       >
         {titleLeft ?? (
-          <CardLoader className="px-12" testId="card-loader-title-left" />
+          <CardLoader className="w-24" testId="card-loader-title-left" />
         )}
         {titleRight ?? (
-          <CardLoader className="px-6" testId="card-loader-title-right" />
+          <CardLoader className="w-12" testId="card-loader-title-right" />
         )}
       </div>
     </div>
