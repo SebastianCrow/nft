@@ -67,7 +67,7 @@ Perform `ESLint` check on the app's codebase.
 
 ## API endpoint notes :construction:
 
-- It returns just a single `img` path to the very big original PNG image (`2000px` x `2000px`) affecting client's performance (as seen in `Google Lighthouse`)
+- It returns just a single `img` path to the very big original PNG image (`2000px` x `2000px`) affecting a client's [performance](#performance) (as seen in `Google Lighthouse`)
   - Thumbnails around `400px` x `400px` in a next-gen format would be a sweet spot
   - Preferably, it should be possible to fetch different sizes/variants from CDN to match the client's layout size
 
@@ -105,6 +105,16 @@ Failed requests to the API endpoint are retried infinitely every `500ms`
 Light and dark themes (including scrollbar). User selection is preserved in the local storage
 
 ![Theme](https://github.com/SebastianCrow/nft/blob/master/readme/theme.gif?raw=true)
+
+<a name="performance"></a>
+## Performance
+
+The only bottleneck is a size of images provided by an API endpoint. It affects a page load and scrolling (FPS).
+
+The `Lighthouse` results below compare a rendering of `400px` and `2000px` images from the server.\
+The `2000px` size is too big and unnecessary for thumbnails.
+
+![Theme](https://github.com/SebastianCrow/nft/blob/master/readme/performance.png?raw=true)
 
 ## Notable libraries used :handshake:
 
